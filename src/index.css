@@ -8,9 +8,23 @@
   --color-obsidian: #050505;
   --color-charcoal: #111111;
   --color-ivory: #fcfcfc;
-  --color-champagne: #eed9bc;
+  --color-brand-primary: #2a5c82;
+  --color-brand-secondary: #8b9cb0;
+  --color-brand-accent: #c0a080;
+  --color-brand-light: #f8f9fa;
+  --color-brand-dark: rgb(14, 30, 44);
   --color-gold-400: #d4af37;
   --color-gold-500: #aa8529;
+  --color-gold-600: #FFD801;
+}
+
+/* Logo always white */
+#nav-logo { --logo-fill: #fcfcfc; --logo-accent: #FFD801; }
+#nav-logo svg { display: block; }
+
+/* Page transition */
+.page-transition {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -45,7 +59,7 @@ body {
 .pnlm-container { background: transparent !important; }
 .pnlm-load-box { display: none !important; }
 
-/* Disable pannellum click-to-gyro button on mobile — we handle it */
+/* Disable pannellum click-to-gyro button on mobile */
 .pnlm-orientation-button { display: none !important; }
 
 /* Hide all pannellum UI controls globally */
@@ -59,41 +73,67 @@ body {
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Ensure gyro/panorama background sits behind everything */
   .pnlm-container {
-    touch-action: none !important;
+    touch-action: pan-y !important;
     pointer-events: none !important;
   }
 
-  /* Mobile section inner elements start hidden (GSAP animates them in) */
   .mobile-section-inner {
-    will-change: transform, opacity;
+    will-change: auto;
   }
 }
 
-/* Gyro permission overlay for iOS (shown before user taps) */
-#gyro-hint {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  background: rgba(5,5,5,0.8);
-  border: 1px solid rgba(238,217,188,0.2);
-  color: rgba(252,252,252,0.7);
-  font-family: 'Inter', sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  padding: 10px 20px;
-  pointer-events: none;
-  white-space: nowrap;
-  animation: fadeHint 4s ease forwards;
+/* Image optimization for better zoom quality */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
-@keyframes fadeHint {
-  0% { opacity: 0; }
-  20% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { opacity: 0; }
+/* Glass effect utilities */
+.glass-effect {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(252, 252, 252, 0.3);
+  border: 1px solid rgba(252, 252, 252, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.glass-effect-dark {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(5, 5, 5, 0.3);
+  border: 1px solid rgba(252, 252, 252, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.glass-effect-subtle {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(252, 252, 252, 0.08);
+  border: 1px solid rgba(252, 252, 252, 0.05);
+}
+
+/* xyro badge */
+#xyro-badge {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  background: rgba(5,5,5,0.7);
+  border: 1px solid rgba(238,217,188,0.2);
+  color: rgba(238,217,188,0.6);
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  pointer-events: none;
+  animation: xyroFadeIn 0.8s ease forwards;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+@keyframes xyroFadeIn {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
