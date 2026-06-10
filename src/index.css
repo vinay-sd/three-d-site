@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+
+  --color-obsidian: #050505;
+  --color-charcoal: #111111;
+  --color-ivory: #fcfcfc;
+  --color-champagne: #eed9bc;
+  --color-gold-400: #d4af37;
+  --color-gold-500: #aa8529;
+}
+
+body {
+  background-color: var(--color-obsidian);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  overscroll-behavior: none;
+}
+
+/* Utilities for 3D */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.blend-screen {
+  mix-blend-mode: screen;
+}
+
+/* Hide scrollbar for immersive feel */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Pannellum background viewer overrides */
+#panorama-bg { width: 100%; height: 100%; background: transparent; }
+.pnlm-container { background: transparent !important; }
+.pnlm-load-box { display: none !important; }
+
+/* Mobile enhancements */
+@media (max-width: 767px) {
+  body {
+    overscroll-behavior: auto;
+  }
+
+  .pnlm-orientation-button {
+    display: none !important;
+  }
+
+  .pnlm-controls {
+    display: none !important;
+  }
+}

@@ -1,0 +1,634 @@
+import { useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import { experienceImages, galleryImages } from '../data';
+import { useIsMobile } from '../hooks/useIsMobile';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const totalDepth = 20000;
+
+function PrologueExhibit({ zOffset }: { zOffset: number }) {
+  return (
+    <div className="absolute inset-0 preserve-3d flex items-center justify-center" style={{ transform: `translateZ(${zOffset}px)` }}>
+      <div className="absolute inset-0 bg-obsidian/60" style={{ transform: 'translateZ(-50px)' }}></div>
+      <div className="text-center preserve-3d max-w-2xl mx-auto px-6" style={{ transform: 'translateZ(80px)' }}>
+        <div className="flex items-center justify-center gap-3 mb-10">
+          <div className="w-8 h-[1px] bg-ivory/10"></div>
+          <span className="text-ivory/20 text-sm font-serif italic">✦</span>
+          <div className="w-8 h-[1px] bg-ivory/10"></div>
+        </div>
+        <p className="font-sans text-xs tracking-[0.35em] uppercase text-ivory/40 mb-6">Wanderfar</p>
+        <h1 className="font-serif text-5xl md:text-7xl text-ivory/80 leading-tight mb-6">
+          A Journey Across<br/>
+          <span className="italic text-champagne">the World</span>
+        </h1>
+        <p className="font-sans text-sm text-ivory/40 tracking-widest uppercase max-w-md mx-auto">
+          Scroll to explore the unknown
+        </p>
+        <div className="mt-12 animate-bounce text-ivory/20">
+          <svg className="w-5 h-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EpilogueExhibit({ zOffset }: { zOffset: number }) {
+  return (
+    <div className="absolute inset-0 preserve-3d flex items-center justify-center" style={{ transform: `translateZ(${zOffset}px)` }}>
+      <div className="absolute inset-0 bg-obsidian/60" style={{ transform: 'translateZ(-50px)' }}></div>
+      <div className="text-center preserve-3d max-w-2xl mx-auto px-6" style={{ transform: 'translateZ(80px)' }}>
+        <div className="flex items-center justify-center gap-3 mb-10">
+          <div className="w-8 h-[1px] bg-ivory/10"></div>
+          <span className="text-ivory/20 text-sm font-serif italic">✦</span>
+          <div className="w-8 h-[1px] bg-ivory/10"></div>
+        </div>
+        <h2 className="font-serif text-5xl md:text-7xl text-ivory/70 leading-tight mb-6">
+          The Horizon<br/>
+          <span className="italic text-champagne">Expands.</span>
+        </h2>
+        <p className="font-sans text-sm text-ivory/40 tracking-widest uppercase max-w-md mx-auto">
+          Every destination is a story waiting to be written.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function HeroExhibit() {
+  const layerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.fromTo(layerRef.current,
+      { opacity: 0, scale: 0.9, filter: "blur(20px)" },
+      { opacity: 1, scale: 1, filter: "blur(0px)", duration: 3, ease: "power3.out" }
+    );
+  }, []);
+
+  return (
+    <div ref={layerRef} className="absolute inset-0 preserve-3d flex flex-col items-center" style={{ transform: `translateZ(0px)` }}>
+      <div className="absolute inset-0 bg-radial-[at_50%_40%] from-charcoal to-obsidian opacity-80" style={{ transform: 'translateZ(-500px)' }}></div>
+      <div className="absolute w-[800px] h-[800px] bg-champagne/10 blur-[120px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ transform: 'translateZ(-200px)' }}></div>
+      <div className="absolute top-[20%] z-10 flex flex-col items-center text-center px-6" style={{ transform: 'translateZ(-80px)' }}>
+        <span className="font-sans text-[10px] md:text-xs tracking-[0.35em] uppercase text-champagne/50 mb-8">Wanderfar — Est. 2012</span>
+        <h2 className="font-serif text-6xl md:text-8xl tracking-tight mb-6 leading-none">
+          Explore the <br/> <span className="italic text-champagne">Unseen.</span>
+        </h2>
+        <p className="font-sans text-sm md:text-base tracking-[0.2em] uppercase text-ivory/50 max-w-sm">
+          Where every path leads to discovery.
+        </p>
+      </div>
+      <div className="absolute bottom-12 z-20" style={{ transform: 'translateZ(200px)' }}>
+        <button className="uppercase font-sans tracking-[0.3em] text-[10px] md:text-xs border border-ivory/20 px-6 py-3 hover:bg-ivory hover:text-obsidian transition-all duration-500">
+          Begin the Journey
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function DestinationsExhibit({ zOffset }: { zOffset: number }) {
+  return (
+    <div className="absolute inset-0 preserve-3d" style={{ transform: `translateZ(${zOffset}px)` }}>
+      <div className="absolute right-0 top-[5%] w-[38%] h-[90%] overflow-hidden" style={{ transform: 'translateZ(60px)' }}>
+        <div className="w-full h-full absolute inset-0 bg-obsidian/10 mix-blend-screen">
+          <img src={galleryImages[1]} className="w-full h-full object-cover opacity-85" alt="" />
+        </div>
+        <div className="absolute inset-4 border border-champagne/20 pointer-events-none"></div>
+      </div>
+      <div className="absolute top-[15%] right-[30%] w-[220px] h-[220px] rounded-full bg-gold-500/5 blur-[80px]" style={{ transform: 'translateZ(-200px)' }}></div>
+      <div className="absolute left-[6%] top-[12%] w-[44%] preserve-3d bg-ivory/70 backdrop-blur-lg p-12 shadow-xl" style={{ transform: 'translateZ(180px)' }}>
+        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500 mb-5">The Atlas</p>
+        <h2 className="font-serif text-5xl md:text-7xl leading-tight mb-7">
+          Where Wild<br/>
+          <span className="italic text-obsidian/60">Meets Wonder</span>
+        </h2>
+        <p className="font-sans text-base text-obsidian/70 leading-relaxed mb-10 border-l-2 border-gold-500/30 pl-5">
+          Since 2012, Wanderfar has pursued a singular vision: to reveal the world's
+          most quietly held secrets. Every journey begins with a story — of the land
+          that shaped the culture, the hands that built the path, and the traveler
+          who dares to walk it.
+        </p>
+        <div className="flex gap-10">
+          <div>
+            <p className="font-serif text-4xl text-gold-500">60+</p>
+            <p className="font-sans text-[10px] tracking-[0.25em] uppercase text-obsidian/50 mt-2">Countries Explored</p>
+          </div>
+          <div className="w-[1px] bg-obsidian/10"></div>
+          <div>
+            <p className="font-serif text-4xl text-gold-500">4</p>
+            <p className="font-sans text-[10px] tracking-[0.25em] uppercase text-obsidian/50 mt-2">Continents Covered</p>
+          </div>
+          <div className="w-[1px] bg-obsidian/10"></div>
+          <div>
+            <p className="font-serif text-4xl text-gold-500">200+</p>
+            <p className="font-sans text-[10px] tracking-[0.25em] uppercase text-obsidian/50 mt-2">Curated Itineraries</p>
+          </div>
+        </div>
+      </div>
+      <div className="absolute right-[6%] bottom-[8%] w-[28%] preserve-3d bg-ivory/70 backdrop-blur-lg p-6 shadow-lg" style={{ transform: 'translateZ(300px)' }}>
+        <p className="font-serif text-sm italic text-obsidian/60 leading-relaxed">
+          "The world is a book. Those who do not travel read only one page."
+        </p>
+        <p className="font-sans text-[9px] tracking-[0.3em] uppercase text-gold-500 mt-3">— Traveler's Creed</p>
+      </div>
+    </div>
+  );
+}
+
+function JourneysExhibit({ zOffset }: { zOffset: number }) {
+  const sizes: { w: number; h: number; t: string; l?: string; r?: string; z: number; rot: number }[] = [
+    { w: 380, h: 500, t: '15%', l: '12%', z: 100, rot: 0 },
+    { w: 280, h: 370, t: '18%', r: '14%', z: -150, rot: -2 },
+    { w: 300, h: 400, t: '52%', l: '38%', z: 50, rot: 1.5 },
+    { w: 240, h: 320, t: '55%', r: '10%', z: 200, rot: -1 },
+  ];
+
+  const journeyItems = [
+    { name: 'The Highlands', region: 'Scotland', image: galleryImages[0] },
+    { name: 'Costa Esmeralda', region: 'Sardinia', image: galleryImages[2] },
+    { name: 'Annapurna Circuit', region: 'Nepal', image: galleryImages[3] },
+    { name: 'The Fjords', region: 'Norway', image: galleryImages[1] },
+  ];
+
+  return (
+    <div className="absolute inset-0 preserve-3d" style={{ transform: `translateZ(${zOffset}px)` }}>
+      <div className="absolute top-[5%] left-1/2 -translate-x-1/2 text-center" style={{ transform: 'translateZ(-350px)' }}>
+        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/60 mb-2">Curated</p>
+        <h2 className="font-serif text-5xl md:text-6xl italic text-obsidian/30 tracking-widest">Signature Journeys</h2>
+      </div>
+      <div className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-champagne/5" style={{ transform: 'translateZ(-200px)' }}></div>
+      {journeyItems.map((col, idx) => {
+        const s = sizes[idx];
+        return (
+          <div
+            key={col.name}
+            className="absolute preserve-3d group cursor-default"
+            style={{
+              top: s.t, left: s.l, right: s.r,
+              transform: `translateZ(${s.z}px) rotate(${s.rot}deg)`,
+              width: s.w, height: s.h,
+            }}
+          >
+            <div className="absolute inset-0 translate-x-[6px] translate-y-[6px] bg-obsidian/20 blur-sm"></div>
+            <div className="absolute inset-0 border border-champagne/15 bg-obsidian/40 overflow-hidden">
+              <img src={col.image} className="w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" alt={col.name} />
+            </div>
+            <div className="absolute -bottom-[1px] left-0 right-0 bg-ivory/70 backdrop-blur-lg px-5 py-4 transition-transform duration-700 group-hover:translate-y-[-4px]">
+              <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-gold-500 mb-1">{col.region}</p>
+              <h3 className="font-serif text-xl tracking-wide">{col.name}</h3>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function ExperienceExhibit({ zOffset }: { zOffset: number }) {
+  const steps = [
+    { image: experienceImages[0], title: 'Trekking', desc: 'Footpaths carved by time through the world\'s greatest ranges.' },
+    { image: experienceImages[1], title: 'Immersion', desc: 'Living alongside cultures that still dance to ancient rhythms.' },
+    { image: experienceImages[2], title: 'Discovery', desc: 'Moments of quiet awe that forever change how you see the world.' },
+  ];
+
+  return (
+    <div className="absolute inset-0 preserve-3d" style={{ transform: `translateZ(${zOffset}px)` }}>
+      <div className="absolute top-[7%] left-[10%]" style={{ transform: 'translateZ(120px)' }}>
+        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500 mb-3">Experience</p>
+        <h2 className="font-serif text-5xl md:text-6xl leading-tight">
+          The Traveler's <span className="italic text-gold-500">Way</span>
+        </h2>
+      </div>
+      <div className="absolute top-[38%] left-1/2 -translate-x-1/2 flex items-start gap-6" style={{ transform: 'translateZ(70px)' }}>
+        {steps.map((step, i) => (
+          <div key={step.title} className="preserve-3d group" style={{ width: 290 }}>
+            {i > 0 && <div className="absolute top-[70px] -left-6 w-6 h-[1px] bg-champagne/20"></div>}
+            {i > 0 && <div className="absolute top-[69px] -left-[3px] w-[7px] h-[7px] rounded-full bg-obsidian/20 border border-champagne/30"></div>}
+            <div className="w-full h-[200px] overflow-hidden border border-champagne/10 transition-transform duration-700 group-hover:scale-[1.02]" style={{ transform: 'translateZ(0px)' }}>
+              <img src={step.image} className="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105" alt={step.title} />
+            </div>
+            <div className="mt-4 bg-ivory/70 backdrop-blur-lg p-4 transition-transform duration-700" style={{ transform: 'translateZ(20px)' }}>
+              <p className="font-sans text-[9px] tracking-[0.3em] uppercase text-gold-500 mb-1">0{i + 1}</p>
+              <h3 className="font-serif text-xl mb-1">{step.title}</h3>
+              <p className="font-sans text-xs text-obsidian/60 leading-relaxed">{step.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="absolute bottom-[15%] right-[8%] w-[300px] h-[300px] rounded-full border border-champagne/5" style={{ transform: 'translateZ(-250px)' }}></div>
+      <div className="absolute bottom-[12%] left-[10%] preserve-3d bg-ivory/70 backdrop-blur-lg px-6 py-4" style={{ transform: 'translateZ(250px)' }}>
+        <p className="font-sans text-[9px] tracking-[0.3em] uppercase text-obsidian/50">Avg. days per expedition</p>
+        <p className="font-serif text-3xl text-gold-500 mt-1">21<span className="font-sans text-xs text-obsidian/40 ml-1">days</span></p>
+      </div>
+    </div>
+  );
+}
+
+function HeritageExhibit({ zOffset }: { zOffset: number }) {
+  const milestones = [
+    { year: '2012', label: 'Wanderfar founded in Reykjavik', z: 120, side: 'left' as const },
+    { year: '2014', label: 'First Patagonia expedition', z: -80, side: 'right' as const },
+    { year: '2017', label: 'Basecamp opens in Nepal', z: 60, side: 'left' as const },
+    { year: '2021', label: 'Sustainable travel initiative', z: -120, side: 'right' as const },
+    { year: '2026', label: 'Two hundred itineraries worldwide', z: 180, side: 'left' as const },
+  ];
+
+  return (
+    <div className="absolute inset-0 preserve-3d" style={{ transform: `translateZ(${zOffset}px)` }}>
+      <div className="absolute top-[6%] left-[8%]" style={{ transform: 'translateZ(-150px)' }}>
+        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/50 mb-2">Heritage</p>
+        <h2 className="font-serif text-6xl md:text-7xl leading-none">
+          Born from <br/><span className="italic text-obsidian/50">Wanderlust.</span>
+        </h2>
+      </div>
+      <div className="absolute top-[22%] bottom-[18%] left-1/2 w-[1px] bg-champagne/10" style={{ transform: 'translateZ(-50px)' }}></div>
+      <div className="absolute top-[22%] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-gold-500/30" style={{ transform: 'translateZ(-50px)' }}></div>
+      <div className="absolute bottom-[18%] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-gold-500/30" style={{ transform: 'translateZ(-50px)' }}></div>
+      {milestones.map((m, i) => {
+        const isLeft = m.side === 'left';
+        return (
+          <div
+            key={m.year}
+            className={`absolute preserve-3d ${isLeft ? 'text-right' : 'text-left'}`}
+            style={{
+              top: `${24 + i * 13}%`,
+              [isLeft ? 'right' : 'left']: '52%',
+              width: 240,
+              transform: `translateZ(${m.z}px)`,
+            }}
+          >
+            <div className="bg-ivory/70 backdrop-blur-lg p-4 border-l border-champagne/10">
+              <p className="font-serif text-2xl text-gold-500 tracking-wide">{m.year}</p>
+              <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-obsidian/60 mt-1">{m.label}</p>
+            </div>
+            <div className={`absolute top-1/2 -translate-y-1/2 w-[7px] h-[7px] rounded-full bg-obsidian/30 border border-champagne/30 ${isLeft ? 'right-[-30px]' : 'left-[-30px]'}`}></div>
+          </div>
+        );
+      })}
+      <div className="absolute bottom-[10%] right-[8%] max-w-md preserve-3d bg-ivory/70 backdrop-blur-lg p-6 shadow-lg" style={{ transform: 'translateZ(250px)' }}>
+        <p className="font-sans text-sm text-obsidian/70 leading-relaxed indent-6">
+          Since 2012, Wanderfar has stood at the intersection of raw wilderness and human curiosity.
+          We do not simply arrange travel; we unearth the world's most quietly held wonders
+          and invite you to witness them.
+        </p>
+      </div>
+      <div className="absolute top-[20%] right-[8%] w-[260px] h-[340px] overflow-hidden border border-champagne/10 opacity-60" style={{ transform: 'translateZ(-250px) rotateZ(2deg)' }}>
+        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="" />
+      </div>
+    </div>
+  );
+}
+
+function PressExhibit({ zOffset }: { zOffset: number }) {
+  const press = [
+    { quote: "Wanderfar doesn't just plan trips, they uncover a kind of magic that most travelers spend a lifetime searching for.", author: 'Condé Nast Traveler', role: 'Feature, March 2026', featured: true, z: 80, t: '28%', l: '12%', w: 480, h: 300 },
+    { quote: "The depth of their local knowledge is felt in every turn of the road.", author: 'National Geographic', role: "Traveler's Edition", featured: false, z: -120, t: '22%', r: '12%', w: 260, h: 180 },
+    { quote: "It is rare to find such uncompromising dedication to authentic travel.", author: 'The Financial Times', role: 'Luxury Travel Supplement', featured: false, z: 150, t: '52%', r: '16%', w: 300, h: 200 },
+    { quote: "They don't follow trends. They forge the paths that others will follow years later.", author: 'Travel + Leisure', role: 'World\'s Best Awards', featured: false, z: -50, t: '56%', l: '14%', w: 280, h: 170 },
+  ];
+
+  return (
+    <div className="absolute inset-0 preserve-3d" style={{ transform: `translateZ(${zOffset}px)` }}>
+      <div className="absolute top-[7%] left-[12%]" style={{ transform: 'translateZ(-100px)' }}>
+        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/50 mb-2">In the Press</p>
+        <h2 className="font-serif text-4xl italic text-obsidian/40 tracking-widest">Echoes</h2>
+      </div>
+      <div className="absolute top-[30%] left-[40%] w-[400px] h-[400px] rounded-full border border-champagne/5" style={{ transform: 'translateZ(-300px)' }}></div>
+      <div className="absolute top-[40%] left-[35%] w-[300px] h-[300px] rounded-full border border-champagne/8" style={{ transform: 'translateZ(-200px)' }}></div>
+      {press.map((p, i) => {
+        if (p.featured) {
+          return (
+            <div key={i} className="absolute preserve-3d" style={{ top: p.t, left: p.l, width: p.w, height: p.h, transform: `translateZ(${p.z}px)` }}>
+              <div className="absolute inset-0 translate-x-[8px] translate-y-[8px] bg-obsidian/15 blur-md"></div>
+              <div className="absolute inset-0 bg-ivory/70 backdrop-blur-lg p-8 flex flex-col justify-between border-l-4 border-gold-500/40">
+                <div>
+                  <div className="flex gap-2 items-center mb-4">
+                    <div className="w-6 h-[1px] bg-gold-500/40"></div>
+                    <p className="font-sans text-[8px] tracking-[0.35em] uppercase text-gold-500/60">Featured</p>
+                  </div>
+                  <p className="font-serif text-2xl md:text-3xl leading-relaxed text-obsidian/80">{p.quote}</p>
+                </div>
+                <div className="pt-4 border-t border-obsidian/5">
+                  <p className="font-sans text-xs tracking-[0.2em] uppercase text-gold-500">{p.author}</p>
+                  <p className="font-sans text-[9px] tracking-widest text-obsidian/40">{p.role}</p>
+                </div>
+              </div>
+            </div>
+          );
+        }
+        return (
+          <div key={i} className="absolute preserve-3d bg-ivory/70 backdrop-blur-lg shadow-md" style={{ top: p.t, left: p.l, right: p.r, width: p.w, height: p.h, transform: `translateZ(${p.z}px)` }}>
+            <div className="p-5 flex flex-col justify-between h-full">
+              <p className="font-serif text-sm leading-relaxed text-obsidian/70">{p.quote}</p>
+              <div className="mt-3 pt-3 border-t border-obsidian/5">
+                <p className="font-sans text-[9px] tracking-[0.2em] uppercase text-gold-500">{p.author}</p>
+                <p className="font-sans text-[8px] tracking-widest text-obsidian/40">{p.role}</p>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function ContactExhibit({ zOffset }: { zOffset: number }) {
+  return (
+    <div className="absolute inset-0 preserve-3d flex items-center justify-center flex-col" style={{ transform: `translateZ(${zOffset}px)` }}>
+      <div className="absolute top-[20%] left-[10%] w-[180px] h-[180px] rounded-full border border-champagne/8" style={{ transform: 'translateZ(-300px)' }}></div>
+      <div className="absolute bottom-[25%] right-[12%] w-[140px] h-[140px] rounded-full border border-champagne/5" style={{ transform: 'translateZ(-250px)' }}></div>
+      <div className="text-center preserve-3d max-w-3xl mx-auto bg-ivory/70 backdrop-blur-lg px-8 py-10" style={{ transform: 'translateZ(100px)' }}>
+        <div className="flex items-center justify-center gap-4 mb-14">
+          <div className="w-12 h-[1px] bg-obsidian/10"></div>
+          <span className="text-obsidian/20 text-2xl font-serif italic">✦</span>
+          <div className="w-12 h-[1px] bg-obsidian/10"></div>
+        </div>
+        <h2 className="font-serif text-6xl md:text-8xl tracking-tighter leading-none mb-4">
+          Find Your <br/><span className="italic text-gold-500">Horizon.</span>
+        </h2>
+        <p className="font-sans text-sm text-obsidian/50 tracking-[0.2em] uppercase mt-8 mb-16 max-w-lg mx-auto">
+          Every journey begins with a conversation. Let us guide you somewhere extraordinary.
+        </p>
+        <div className="flex flex-wrap gap-8 justify-center font-sans tracking-[0.25em] text-xs uppercase">
+          {['Plan an Expedition', 'Contact a Guide', 'Group Inquiries'].map((link) => (
+            <a key={link} href="#" className="relative group">
+              <span className="text-obsidian/60 group-hover:text-obsidian transition-colors duration-500">{link}</span>
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gold-500/60 group-hover:w-full transition-all duration-500"></span>
+            </a>
+          ))}
+        </div>
+        <div className="flex items-center justify-center gap-4 mt-20 mb-12">
+          <div className="w-8 h-[1px] bg-obsidian/8"></div>
+          <span className="text-obsidian/10 text-lg font-serif italic">✦</span>
+          <div className="w-8 h-[1px] bg-obsidian/8"></div>
+        </div>
+        <p className="font-sans text-[9px] text-obsidian/30 tracking-[0.4em] uppercase">&copy; 2026 WANDERFAR. ALL RIGHTS RESERVED.</p>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Mobile stacked layout ─── */
+
+function MobileSection({ children, overlay = true }: { children: React.ReactNode; overlay?: boolean }) {
+  return (
+    <section className="min-h-screen w-full flex items-center justify-center px-6 py-20 relative">
+      {overlay && <div className="absolute inset-0 bg-obsidian/60" />}
+      <div className="relative z-10 w-full max-w-lg mx-auto text-center">
+        {children}
+      </div>
+    </section>
+  );
+}
+
+function MobileHomePage() {
+  const journeyItems = [
+    { name: 'The Highlands', region: 'Scotland', image: galleryImages[0] },
+    { name: 'Costa Esmeralda', region: 'Sardinia', image: galleryImages[2] },
+    { name: 'Annapurna Circuit', region: 'Nepal', image: galleryImages[3] },
+    { name: 'The Fjords', region: 'Norway', image: galleryImages[1] },
+  ];
+
+  const steps = [
+    { image: experienceImages[0], title: 'Trekking', desc: 'Footpaths carved by time through the world\'s greatest ranges.' },
+    { image: experienceImages[1], title: 'Immersion', desc: 'Living alongside cultures that still dance to ancient rhythms.' },
+    { image: experienceImages[2], title: 'Discovery', desc: 'Moments of quiet awe that forever change how you see the world.' },
+  ];
+
+  const milestones = [
+    { year: '2012', label: 'Wanderfar founded in Reykjavik' },
+    { year: '2014', label: 'First Patagonia expedition' },
+    { year: '2017', label: 'Basecamp opens in Nepal' },
+    { year: '2021', label: 'Sustainable travel initiative' },
+    { year: '2026', label: 'Two hundred itineraries worldwide' },
+  ];
+
+  const press = [
+    { quote: "Wanderfar doesn't just plan trips, they uncover a kind of magic that most travelers spend a lifetime searching for.", author: 'Condé Nast Traveler' },
+    { quote: "The depth of their local knowledge is felt in every turn of the road.", author: 'National Geographic' },
+    { quote: "It is rare to find such uncompromising dedication to authentic travel.", author: 'The Financial Times' },
+    { quote: "They don't follow trends. They forge the paths that others will follow years later.", author: 'Travel + Leisure' },
+  ];
+
+  return (
+    <div className="w-full text-ivory relative z-[3]">
+      <MobileSection>
+        <div className="flex items-center justify-center gap-3 mb-8">
+          <div className="w-8 h-[1px] bg-ivory/10"></div>
+          <span className="text-ivory/20 text-sm font-serif italic">✦</span>
+          <div className="w-8 h-[1px] bg-ivory/10"></div>
+        </div>
+        <p className="font-sans text-xs tracking-[0.35em] uppercase text-ivory/40 mb-6">Wanderfar</p>
+        <h1 className="font-serif text-4xl text-ivory/80 leading-tight mb-6">
+          A Journey Across<br/>
+          <span className="italic text-champagne">the World</span>
+        </h1>
+        <p className="font-sans text-sm text-ivory/40 tracking-widest uppercase">Scroll to explore</p>
+      </MobileSection>
+
+      <MobileSection overlay={false}>
+        <span className="font-sans text-[10px] tracking-[0.35em] uppercase text-champagne/50 mb-6 block">Wanderfar — Est. 2012</span>
+        <h2 className="font-serif text-5xl tracking-tight mb-6 leading-none">
+          Explore the <br/> <span className="italic text-champagne">Unseen.</span>
+        </h2>
+        <p className="font-sans text-sm tracking-[0.2em] uppercase text-ivory/50 max-w-xs mx-auto mb-10">
+          Where every path leads to discovery.
+        </p>
+        <button className="uppercase font-sans tracking-[0.3em] text-[10px] border border-ivory/20 px-6 py-3">
+          Begin the Journey
+        </button>
+      </MobileSection>
+
+      <MobileSection overlay={false}>
+        <div className="bg-ivory/70 backdrop-blur-lg p-6 text-left">
+          <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500 mb-3">The Atlas</p>
+          <h2 className="font-serif text-4xl leading-tight mb-4 text-obsidian/80">
+            Where Wild<br/>
+            <span className="italic text-obsidian/60">Meets Wonder</span>
+          </h2>
+          <p className="font-sans text-sm text-obsidian/70 leading-relaxed mb-6 border-l-2 border-gold-500/30 pl-4">
+            Since 2012, Wanderfar has pursued a singular vision: to reveal the world's
+            most quietly held secrets.
+          </p>
+          <div className="flex gap-6 justify-between">
+            <div className="text-center">
+              <p className="font-serif text-3xl text-gold-500">60+</p>
+              <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-obsidian/50 mt-1">Countries</p>
+            </div>
+            <div className="text-center">
+              <p className="font-serif text-3xl text-gold-500">4</p>
+              <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-obsidian/50 mt-1">Continents</p>
+            </div>
+            <div className="text-center">
+              <p className="font-serif text-3xl text-gold-500">200+</p>
+              <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-obsidian/50 mt-1">Itineraries</p>
+            </div>
+          </div>
+        </div>
+        <p className="font-serif text-xs italic text-ivory/50 mt-6 px-4">
+          "The world is a book. Those who do not travel read only one page."
+        </p>
+      </MobileSection>
+
+      <MobileSection>
+        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/60 mb-4">Curated</p>
+        <h2 className="font-serif text-3xl italic text-ivory/80 mb-8">Signature Journeys</h2>
+        <div className="grid grid-cols-2 gap-3">
+          {journeyItems.map((item) => (
+            <div key={item.name} className="overflow-hidden border border-champagne/15">
+              <div className="h-32 overflow-hidden">
+                <img src={item.image} className="w-full h-full object-cover" alt={item.name} />
+              </div>
+              <div className="bg-ivory/70 backdrop-blur-lg px-3 py-2">
+                <p className="font-sans text-[8px] tracking-[0.25em] uppercase text-gold-500">{item.region}</p>
+                <p className="font-serif text-sm text-obsidian/80">{item.name}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </MobileSection>
+
+      <MobileSection>
+        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500 mb-4">Experience</p>
+        <h2 className="font-serif text-4xl leading-tight mb-8">
+          The Traveler's <span className="italic text-gold-500">Way</span>
+        </h2>
+        <div className="space-y-4">
+          {steps.map((step, i) => (
+            <div key={step.title} className="flex gap-4 items-start">
+              <div className="w-20 h-20 shrink-0 overflow-hidden border border-champagne/10">
+                <img src={step.image} className="w-full h-full object-cover" alt={step.title} />
+              </div>
+              <div className="text-left">
+                <p className="font-sans text-[9px] tracking-[0.3em] uppercase text-gold-500/60">0{i + 1}</p>
+                <h3 className="font-serif text-lg text-ivory/90">{step.title}</h3>
+                <p className="font-sans text-xs text-ivory/50 leading-relaxed">{step.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </MobileSection>
+
+      <MobileSection>
+        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/50 mb-4">Heritage</p>
+        <h2 className="font-serif text-4xl leading-none mb-8">
+          Born from <br/><span className="italic text-champagne">Wanderlust.</span>
+        </h2>
+        <div className="space-y-4 text-left max-w-xs mx-auto">
+          {milestones.map((m) => (
+            <div key={m.year} className="flex gap-4 items-center">
+              <div className="w-16 text-right shrink-0">
+                <p className="font-serif text-lg text-gold-500">{m.year}</p>
+              </div>
+              <div className="w-[1px] h-8 bg-champagne/20" />
+              <div>
+                <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-ivory/60">{m.label}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </MobileSection>
+
+      <MobileSection>
+        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/50 mb-4">In the Press</p>
+        <div className="space-y-3 text-left">
+          {press.map((p, i) => (
+            <div key={i} className="bg-ivory/70 backdrop-blur-lg p-4 border-l-4 border-gold-500/40">
+              <p className="font-serif text-sm leading-relaxed text-obsidian/80 mb-2">"{p.quote}"</p>
+              <p className="font-sans text-[9px] tracking-[0.2em] uppercase text-gold-500">{p.author}</p>
+            </div>
+          ))}
+        </div>
+      </MobileSection>
+
+      <MobileSection overlay={false}>
+        <div className="bg-ivory/70 backdrop-blur-lg px-6 py-10">
+          <div className="flex items-center justify-center gap-4 mb-10">
+            <div className="w-8 h-[1px] bg-obsidian/10"></div>
+            <span className="text-obsidian/20 text-lg font-serif italic">✦</span>
+            <div className="w-8 h-[1px] bg-obsidian/10"></div>
+          </div>
+          <h2 className="font-serif text-5xl tracking-tighter leading-none mb-4">
+            Find Your <br/><span className="italic text-gold-500">Horizon.</span>
+          </h2>
+          <p className="font-sans text-xs text-obsidian/50 tracking-[0.2em] uppercase mt-6 mb-10">
+            Every journey begins with a conversation.
+          </p>
+          <div className="flex flex-col gap-4 font-sans tracking-[0.25em] text-xs uppercase">
+            {['Plan an Expedition', 'Contact a Guide', 'Group Inquiries'].map((link) => (
+              <a key={link} href="#" className="text-obsidian/60 hover:text-obsidian transition-colors">{link}</a>
+            ))}
+          </div>
+          <div className="flex items-center justify-center gap-4 mt-10 mb-6">
+            <div className="w-8 h-[1px] bg-obsidian/8"></div>
+            <span className="text-obsidian/10 text-sm font-serif italic">✦</span>
+            <div className="w-8 h-[1px] bg-obsidian/8"></div>
+          </div>
+          <p className="font-sans text-[8px] text-obsidian/30 tracking-[0.4em] uppercase">&copy; 2026 WANDERFAR</p>
+        </div>
+      </MobileSection>
+    </div>
+  );
+}
+
+export default function HomePage() {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return <MobileHomePage />;
+  }
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cameraRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.to(sceneRef.current, {
+      z: totalDepth,
+      ease: "none",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1.5,
+      }
+    });
+
+    const onMouse = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      gsap.to(cameraRef.current, {
+        rotateX: -y * 3,
+        rotateY: x * 5,
+        duration: 2, ease: "power2.out",
+      });
+    };
+    window.addEventListener("mousemove", onMouse);
+    return () => window.removeEventListener("mousemove", onMouse);
+  }, { scope: containerRef });
+
+  return (
+    <div ref={containerRef} style={{ height: '1400vh' }} className="w-full text-obsidian relative z-[3]">
+      <div className="fixed inset-0 overflow-hidden" style={{ perspective: '1200px' }}>
+        <div ref={cameraRef} className="w-full h-full preserve-3d absolute inset-0" style={{ transformOrigin: '50% 50% 0px' }}>
+          <div ref={sceneRef} className="w-full h-full preserve-3d absolute inset-0">
+             <PrologueExhibit zOffset={2500} />
+             <HeroExhibit />
+             <DestinationsExhibit zOffset={-2500} />
+             <JourneysExhibit zOffset={-5500} />
+             <ExperienceExhibit zOffset={-8500} />
+             <HeritageExhibit zOffset={-11500} />
+             <PressExhibit zOffset={-14500} />
+             <ContactExhibit zOffset={-17500} />
+             <EpilogueExhibit zOffset={-20000} />
+           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
