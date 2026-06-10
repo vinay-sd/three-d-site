@@ -45,17 +45,55 @@ body {
 .pnlm-container { background: transparent !important; }
 .pnlm-load-box { display: none !important; }
 
-/* Mobile enhancements */
+/* Disable pannellum click-to-gyro button on mobile — we handle it */
+.pnlm-orientation-button { display: none !important; }
+
+/* Hide all pannellum UI controls globally */
+.pnlm-controls { display: none !important; }
+.pnlm-about-msg { display: none !important; }
+
+/* Mobile: enable natural scroll, smoother experience */
 @media (max-width: 767px) {
   body {
     overscroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .pnlm-orientation-button {
-    display: none !important;
+  /* Ensure gyro/panorama background sits behind everything */
+  .pnlm-container {
+    touch-action: none !important;
+    pointer-events: none !important;
   }
 
-  .pnlm-controls {
-    display: none !important;
+  /* Mobile section inner elements start hidden (GSAP animates them in) */
+  .mobile-section-inner {
+    will-change: transform, opacity;
   }
+}
+
+/* Gyro permission overlay for iOS (shown before user taps) */
+#gyro-hint {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: rgba(5,5,5,0.8);
+  border: 1px solid rgba(238,217,188,0.2);
+  color: rgba(252,252,252,0.7);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  pointer-events: none;
+  white-space: nowrap;
+  animation: fadeHint 4s ease forwards;
+}
+
+@keyframes fadeHint {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
 }

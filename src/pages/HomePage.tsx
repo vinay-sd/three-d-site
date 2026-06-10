@@ -9,6 +9,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const totalDepth = 20000;
 
+/* ─── Desktop Exhibits ────────────────────────────────────────────────── */
+
 function PrologueExhibit({ zOffset }: { zOffset: number }) {
   return (
     <div className="absolute inset-0 preserve-3d flex items-center justify-center" style={{ transform: `translateZ(${zOffset}px)` }}>
@@ -16,16 +18,16 @@ function PrologueExhibit({ zOffset }: { zOffset: number }) {
       <div className="text-center preserve-3d max-w-2xl mx-auto px-6" style={{ transform: 'translateZ(80px)' }}>
         <div className="flex items-center justify-center gap-3 mb-10">
           <div className="w-8 h-[1px] bg-ivory/10"></div>
-          <span className="text-ivory/20 text-sm font-serif italic">✦</span>
+          <span className="text-ivory/20 text-sm font-serif italic">✈</span>
           <div className="w-8 h-[1px] bg-ivory/10"></div>
         </div>
-        <p className="font-sans text-xs tracking-[0.35em] uppercase text-ivory/40 mb-6">Wanderfar</p>
+        <p className="font-sans text-xs tracking-[0.35em] uppercase text-ivory/40 mb-6">SkyBound Airways</p>
         <h1 className="font-serif text-5xl md:text-7xl text-ivory/80 leading-tight mb-6">
-          A Journey Across<br/>
-          <span className="italic text-champagne">the World</span>
+          Above the Clouds,<br/>
+          <span className="italic text-champagne">Beyond Borders</span>
         </h1>
         <p className="font-sans text-sm text-ivory/40 tracking-widest uppercase max-w-md mx-auto">
-          Scroll to explore the unknown
+          Scroll to take flight
         </p>
         <div className="mt-12 animate-bounce text-ivory/20">
           <svg className="w-5 h-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
@@ -44,15 +46,15 @@ function EpilogueExhibit({ zOffset }: { zOffset: number }) {
       <div className="text-center preserve-3d max-w-2xl mx-auto px-6" style={{ transform: 'translateZ(80px)' }}>
         <div className="flex items-center justify-center gap-3 mb-10">
           <div className="w-8 h-[1px] bg-ivory/10"></div>
-          <span className="text-ivory/20 text-sm font-serif italic">✦</span>
+          <span className="text-ivory/20 text-sm font-serif italic">✈</span>
           <div className="w-8 h-[1px] bg-ivory/10"></div>
         </div>
         <h2 className="font-serif text-5xl md:text-7xl text-ivory/70 leading-tight mb-6">
-          The Horizon<br/>
-          <span className="italic text-champagne">Expands.</span>
+          Your Runway<br/>
+          <span className="italic text-champagne">Awaits.</span>
         </h2>
         <p className="font-sans text-sm text-ivory/40 tracking-widest uppercase max-w-md mx-auto">
-          Every destination is a story waiting to be written.
+          Every great journey begins with takeoff.
         </p>
       </div>
     </div>
@@ -74,24 +76,24 @@ function HeroExhibit() {
       <div className="absolute inset-0 bg-radial-[at_50%_40%] from-charcoal to-obsidian opacity-80" style={{ transform: 'translateZ(-500px)' }}></div>
       <div className="absolute w-[800px] h-[800px] bg-champagne/10 blur-[120px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ transform: 'translateZ(-200px)' }}></div>
       <div className="absolute top-[20%] z-10 flex flex-col items-center text-center px-6" style={{ transform: 'translateZ(-80px)' }}>
-        <span className="font-sans text-[10px] md:text-xs tracking-[0.35em] uppercase text-champagne/50 mb-8">Wanderfar — Est. 2012</span>
+        <span className="font-sans text-[10px] md:text-xs tracking-[0.35em] uppercase text-champagne/50 mb-8">SkyBound Airways — Est. 2008</span>
         <h2 className="font-serif text-6xl md:text-8xl tracking-tight mb-6 leading-none">
-          Explore the <br/> <span className="italic text-champagne">Unseen.</span>
+          First Class<br/> <span className="italic text-champagne">to Anywhere.</span>
         </h2>
         <p className="font-sans text-sm md:text-base tracking-[0.2em] uppercase text-ivory/50 max-w-sm">
-          Where every path leads to discovery.
+          The world's most breathtaking routes, elevated.
         </p>
       </div>
       <div className="absolute bottom-12 z-20" style={{ transform: 'translateZ(200px)' }}>
         <button className="uppercase font-sans tracking-[0.3em] text-[10px] md:text-xs border border-ivory/20 px-6 py-3 hover:bg-ivory hover:text-obsidian transition-all duration-500">
-          Begin the Journey
+          Book a Flight
         </button>
       </div>
     </div>
   );
 }
 
-function DestinationsExhibit({ zOffset }: { zOffset: number }) {
+function RoutesExhibit({ zOffset }: { zOffset: number }) {
   return (
     <div className="absolute inset-0 preserve-3d" style={{ transform: `translateZ(${zOffset}px)` }}>
       <div className="absolute right-0 top-[5%] w-[38%] h-[90%] overflow-hidden" style={{ transform: 'translateZ(60px)' }}>
@@ -102,45 +104,44 @@ function DestinationsExhibit({ zOffset }: { zOffset: number }) {
       </div>
       <div className="absolute top-[15%] right-[30%] w-[220px] h-[220px] rounded-full bg-gold-500/5 blur-[80px]" style={{ transform: 'translateZ(-200px)' }}></div>
       <div className="absolute left-[6%] top-[12%] w-[44%] preserve-3d bg-ivory/70 backdrop-blur-lg p-12 shadow-xl" style={{ transform: 'translateZ(180px)' }}>
-        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500 mb-5">The Atlas</p>
+        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500 mb-5">Our Fleet</p>
         <h2 className="font-serif text-5xl md:text-7xl leading-tight mb-7">
-          Where Wild<br/>
-          <span className="italic text-obsidian/60">Meets Wonder</span>
+          Where Sky<br/>
+          <span className="italic text-obsidian/60">Meets Luxury</span>
         </h2>
         <p className="font-sans text-base text-obsidian/70 leading-relaxed mb-10 border-l-2 border-gold-500/30 pl-5">
-          Since 2012, Wanderfar has pursued a singular vision: to reveal the world's
-          most quietly held secrets. Every journey begins with a story — of the land
-          that shaped the culture, the hands that built the path, and the traveler
-          who dares to walk it.
+          Since 2008, SkyBound has redefined what it means to fly. Our fleet of next-generation
+          aircraft connects over 120 cities across six continents — every seat, a window
+          to something extraordinary.
         </p>
         <div className="flex gap-10">
           <div>
-            <p className="font-serif text-4xl text-gold-500">60+</p>
-            <p className="font-sans text-[10px] tracking-[0.25em] uppercase text-obsidian/50 mt-2">Countries Explored</p>
+            <p className="font-serif text-4xl text-gold-500">120+</p>
+            <p className="font-sans text-[10px] tracking-[0.25em] uppercase text-obsidian/50 mt-2">Destinations</p>
           </div>
           <div className="w-[1px] bg-obsidian/10"></div>
           <div>
-            <p className="font-serif text-4xl text-gold-500">4</p>
-            <p className="font-sans text-[10px] tracking-[0.25em] uppercase text-obsidian/50 mt-2">Continents Covered</p>
+            <p className="font-serif text-4xl text-gold-500">6</p>
+            <p className="font-sans text-[10px] tracking-[0.25em] uppercase text-obsidian/50 mt-2">Continents</p>
           </div>
           <div className="w-[1px] bg-obsidian/10"></div>
           <div>
-            <p className="font-serif text-4xl text-gold-500">200+</p>
-            <p className="font-sans text-[10px] tracking-[0.25em] uppercase text-obsidian/50 mt-2">Curated Itineraries</p>
+            <p className="font-serif text-4xl text-gold-500">48</p>
+            <p className="font-sans text-[10px] tracking-[0.25em] uppercase text-obsidian/50 mt-2">Aircraft</p>
           </div>
         </div>
       </div>
       <div className="absolute right-[6%] bottom-[8%] w-[28%] preserve-3d bg-ivory/70 backdrop-blur-lg p-6 shadow-lg" style={{ transform: 'translateZ(300px)' }}>
         <p className="font-serif text-sm italic text-obsidian/60 leading-relaxed">
-          "The world is a book. Those who do not travel read only one page."
+          "The sky is not the limit — it's the beginning."
         </p>
-        <p className="font-sans text-[9px] tracking-[0.3em] uppercase text-gold-500 mt-3">— Traveler's Creed</p>
+        <p className="font-sans text-[9px] tracking-[0.3em] uppercase text-gold-500 mt-3">— SkyBound Creed</p>
       </div>
     </div>
   );
 }
 
-function JourneysExhibit({ zOffset }: { zOffset: number }) {
+function DestinationsExhibit({ zOffset }: { zOffset: number }) {
   const sizes: { w: number; h: number; t: string; l?: string; r?: string; z: number; rot: number }[] = [
     { w: 380, h: 500, t: '15%', l: '12%', z: 100, rot: 0 },
     { w: 280, h: 370, t: '18%', r: '14%', z: -150, rot: -2 },
@@ -148,21 +149,21 @@ function JourneysExhibit({ zOffset }: { zOffset: number }) {
     { w: 240, h: 320, t: '55%', r: '10%', z: 200, rot: -1 },
   ];
 
-  const journeyItems = [
-    { name: 'The Highlands', region: 'Scotland', image: galleryImages[0] },
-    { name: 'Costa Esmeralda', region: 'Sardinia', image: galleryImages[2] },
-    { name: 'Annapurna Circuit', region: 'Nepal', image: galleryImages[3] },
-    { name: 'The Fjords', region: 'Norway', image: galleryImages[1] },
+  const destItems = [
+    { name: 'Tokyo', region: 'Japan', image: galleryImages[0] },
+    { name: 'Santorini', region: 'Greece', image: galleryImages[2] },
+    { name: 'Maldives', region: 'Indian Ocean', image: galleryImages[3] },
+    { name: 'Patagonia', region: 'Chile', image: galleryImages[1] },
   ];
 
   return (
     <div className="absolute inset-0 preserve-3d" style={{ transform: `translateZ(${zOffset}px)` }}>
       <div className="absolute top-[5%] left-1/2 -translate-x-1/2 text-center" style={{ transform: 'translateZ(-350px)' }}>
-        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/60 mb-2">Curated</p>
-        <h2 className="font-serif text-5xl md:text-6xl italic text-obsidian/30 tracking-widest">Signature Journeys</h2>
+        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/60 mb-2">Routes</p>
+        <h2 className="font-serif text-5xl md:text-6xl italic text-obsidian/30 tracking-widest">Signature Destinations</h2>
       </div>
       <div className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-champagne/5" style={{ transform: 'translateZ(-200px)' }}></div>
-      {journeyItems.map((col, idx) => {
+      {destItems.map((col, idx) => {
         const s = sizes[idx];
         return (
           <div
@@ -189,53 +190,53 @@ function JourneysExhibit({ zOffset }: { zOffset: number }) {
   );
 }
 
-function ExperienceExhibit({ zOffset }: { zOffset: number }) {
-  const steps = [
-    { image: experienceImages[0], title: 'Trekking', desc: 'Footpaths carved by time through the world\'s greatest ranges.' },
-    { image: experienceImages[1], title: 'Immersion', desc: 'Living alongside cultures that still dance to ancient rhythms.' },
-    { image: experienceImages[2], title: 'Discovery', desc: 'Moments of quiet awe that forever change how you see the world.' },
+function ClassesExhibit({ zOffset }: { zOffset: number }) {
+  const classes = [
+    { image: experienceImages[0], title: 'First Class', desc: 'Lie-flat suites, Michelin-inspired dining, and curated skies above.' },
+    { image: experienceImages[1], title: 'Business', desc: 'Spacious comfort, direct aisle access, and seamless productivity at altitude.' },
+    { image: experienceImages[2], title: 'Panorama', desc: "Our premium economy \u2014 views you'll never forget, comfort you'll always return to." },
   ];
 
   return (
     <div className="absolute inset-0 preserve-3d" style={{ transform: `translateZ(${zOffset}px)` }}>
       <div className="absolute top-[7%] left-[10%]" style={{ transform: 'translateZ(120px)' }}>
-        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500 mb-3">Experience</p>
+        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500 mb-3">Cabin Experience</p>
         <h2 className="font-serif text-5xl md:text-6xl leading-tight">
-          The Traveler's <span className="italic text-gold-500">Way</span>
+          The SkyBound <span className="italic text-gold-500">Difference</span>
         </h2>
       </div>
       <div className="absolute top-[38%] left-1/2 -translate-x-1/2 flex items-start gap-6" style={{ transform: 'translateZ(70px)' }}>
-        {steps.map((step, i) => (
-          <div key={step.title} className="preserve-3d group" style={{ width: 290 }}>
+        {classes.map((cls, i) => (
+          <div key={cls.title} className="preserve-3d group relative" style={{ width: 290 }}>
             {i > 0 && <div className="absolute top-[70px] -left-6 w-6 h-[1px] bg-champagne/20"></div>}
             {i > 0 && <div className="absolute top-[69px] -left-[3px] w-[7px] h-[7px] rounded-full bg-obsidian/20 border border-champagne/30"></div>}
-            <div className="w-full h-[200px] overflow-hidden border border-champagne/10 transition-transform duration-700 group-hover:scale-[1.02]" style={{ transform: 'translateZ(0px)' }}>
-              <img src={step.image} className="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105" alt={step.title} />
+            <div className="w-full h-[200px] overflow-hidden border border-champagne/10 transition-transform duration-700 group-hover:scale-[1.02]">
+              <img src={cls.image} className="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105" alt={cls.title} />
             </div>
             <div className="mt-4 bg-ivory/70 backdrop-blur-lg p-4 transition-transform duration-700" style={{ transform: 'translateZ(20px)' }}>
               <p className="font-sans text-[9px] tracking-[0.3em] uppercase text-gold-500 mb-1">0{i + 1}</p>
-              <h3 className="font-serif text-xl mb-1">{step.title}</h3>
-              <p className="font-sans text-xs text-obsidian/60 leading-relaxed">{step.desc}</p>
+              <h3 className="font-serif text-xl mb-1">{cls.title}</h3>
+              <p className="font-sans text-xs text-obsidian/60 leading-relaxed">{cls.desc}</p>
             </div>
           </div>
         ))}
       </div>
       <div className="absolute bottom-[15%] right-[8%] w-[300px] h-[300px] rounded-full border border-champagne/5" style={{ transform: 'translateZ(-250px)' }}></div>
       <div className="absolute bottom-[12%] left-[10%] preserve-3d bg-ivory/70 backdrop-blur-lg px-6 py-4" style={{ transform: 'translateZ(250px)' }}>
-        <p className="font-sans text-[9px] tracking-[0.3em] uppercase text-obsidian/50">Avg. days per expedition</p>
-        <p className="font-serif text-3xl text-gold-500 mt-1">21<span className="font-sans text-xs text-obsidian/40 ml-1">days</span></p>
+        <p className="font-sans text-[9px] tracking-[0.3em] uppercase text-obsidian/50">Avg. flight satisfaction</p>
+        <p className="font-serif text-3xl text-gold-500 mt-1">98<span className="font-sans text-xs text-obsidian/40 ml-1">%</span></p>
       </div>
     </div>
   );
 }
 
-function HeritageExhibit({ zOffset }: { zOffset: number }) {
+function LegacyExhibit({ zOffset }: { zOffset: number }) {
   const milestones = [
-    { year: '2012', label: 'Wanderfar founded in Reykjavik', z: 120, side: 'left' as const },
-    { year: '2014', label: 'First Patagonia expedition', z: -80, side: 'right' as const },
-    { year: '2017', label: 'Basecamp opens in Nepal', z: 60, side: 'left' as const },
-    { year: '2021', label: 'Sustainable travel initiative', z: -120, side: 'right' as const },
-    { year: '2026', label: 'Two hundred itineraries worldwide', z: 180, side: 'left' as const },
+    { year: '2008', label: 'SkyBound founded, first route Mumbai–Dubai', z: 120, side: 'left' as const },
+    { year: '2011', label: 'Transatlantic routes open', z: -80, side: 'right' as const },
+    { year: '2015', label: 'First Class Suite launched', z: 60, side: 'left' as const },
+    { year: '2020', label: 'Sustainable aviation fuel initiative', z: -120, side: 'right' as const },
+    { year: '2026', label: '120 destinations across six continents', z: 180, side: 'left' as const },
   ];
 
   return (
@@ -243,7 +244,7 @@ function HeritageExhibit({ zOffset }: { zOffset: number }) {
       <div className="absolute top-[6%] left-[8%]" style={{ transform: 'translateZ(-150px)' }}>
         <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/50 mb-2">Heritage</p>
         <h2 className="font-serif text-6xl md:text-7xl leading-none">
-          Born from <br/><span className="italic text-obsidian/50">Wanderlust.</span>
+          Built for<br/><span className="italic text-obsidian/50">the Sky.</span>
         </h2>
       </div>
       <div className="absolute top-[22%] bottom-[18%] left-1/2 w-[1px] bg-champagne/10" style={{ transform: 'translateZ(-50px)' }}></div>
@@ -272,13 +273,12 @@ function HeritageExhibit({ zOffset }: { zOffset: number }) {
       })}
       <div className="absolute bottom-[10%] right-[8%] max-w-md preserve-3d bg-ivory/70 backdrop-blur-lg p-6 shadow-lg" style={{ transform: 'translateZ(250px)' }}>
         <p className="font-sans text-sm text-obsidian/70 leading-relaxed indent-6">
-          Since 2012, Wanderfar has stood at the intersection of raw wilderness and human curiosity.
-          We do not simply arrange travel; we unearth the world's most quietly held wonders
-          and invite you to witness them.
+          SkyBound was born from the belief that flight is not merely transport — it is the beginning
+          of transformation. Every departure is a threshold crossed; every arrival, a new world entered.
         </p>
       </div>
       <div className="absolute top-[20%] right-[8%] w-[260px] h-[340px] overflow-hidden border border-champagne/10 opacity-60" style={{ transform: 'translateZ(-250px) rotateZ(2deg)' }}>
-        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="" />
+        <img src="https://images.unsplash.com/photo-1569629743817-70d8db6c323b?auto=format&fit=crop&q=80" className="w-full h-full object-cover" alt="" />
       </div>
     </div>
   );
@@ -286,20 +286,19 @@ function HeritageExhibit({ zOffset }: { zOffset: number }) {
 
 function PressExhibit({ zOffset }: { zOffset: number }) {
   const press = [
-    { quote: "Wanderfar doesn't just plan trips, they uncover a kind of magic that most travelers spend a lifetime searching for.", author: 'Condé Nast Traveler', role: 'Feature, March 2026', featured: true, z: 80, t: '28%', l: '12%', w: 480, h: 300 },
-    { quote: "The depth of their local knowledge is felt in every turn of the road.", author: 'National Geographic', role: "Traveler's Edition", featured: false, z: -120, t: '22%', r: '12%', w: 260, h: 180 },
-    { quote: "It is rare to find such uncompromising dedication to authentic travel.", author: 'The Financial Times', role: 'Luxury Travel Supplement', featured: false, z: 150, t: '52%', r: '16%', w: 300, h: 200 },
-    { quote: "They don't follow trends. They forge the paths that others will follow years later.", author: 'Travel + Leisure', role: 'World\'s Best Awards', featured: false, z: -50, t: '56%', l: '14%', w: 280, h: 170 },
+    { quote: "SkyBound has done what no other airline dared — made flying genuinely aspirational again.", author: 'Condé Nast Traveler', role: 'Feature, April 2026', featured: true, z: 80, t: '28%', l: '12%', w: 480, h: 300 },
+    { quote: "The First Class Suite is a masterclass in luxury at altitude.", author: 'Wallpaper*', role: 'Design & Travel', featured: false, z: -120, t: '22%', r: '12%', w: 260, h: 180 },
+    { quote: "An airline that treats every passenger as a guest, not just a passenger number.", author: 'The Financial Times', role: 'Travel Supplement', featured: false, z: 150, t: '52%', r: '16%', w: 300, h: 200 },
+    { quote: "They don't sell seats. They sell arrival at a feeling.", author: 'Travel + Leisure', role: "World's Best Airlines 2026", featured: false, z: -50, t: '56%', l: '14%', w: 280, h: 170 },
   ];
 
   return (
     <div className="absolute inset-0 preserve-3d" style={{ transform: `translateZ(${zOffset}px)` }}>
       <div className="absolute top-[7%] left-[12%]" style={{ transform: 'translateZ(-100px)' }}>
         <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/50 mb-2">In the Press</p>
-        <h2 className="font-serif text-4xl italic text-obsidian/40 tracking-widest">Echoes</h2>
+        <h2 className="font-serif text-4xl italic text-obsidian/40 tracking-widest">Altitude</h2>
       </div>
       <div className="absolute top-[30%] left-[40%] w-[400px] h-[400px] rounded-full border border-champagne/5" style={{ transform: 'translateZ(-300px)' }}></div>
-      <div className="absolute top-[40%] left-[35%] w-[300px] h-[300px] rounded-full border border-champagne/8" style={{ transform: 'translateZ(-200px)' }}></div>
       {press.map((p, i) => {
         if (p.featured) {
           return (
@@ -345,17 +344,17 @@ function ContactExhibit({ zOffset }: { zOffset: number }) {
       <div className="text-center preserve-3d max-w-3xl mx-auto bg-ivory/70 backdrop-blur-lg px-8 py-10" style={{ transform: 'translateZ(100px)' }}>
         <div className="flex items-center justify-center gap-4 mb-14">
           <div className="w-12 h-[1px] bg-obsidian/10"></div>
-          <span className="text-obsidian/20 text-2xl font-serif italic">✦</span>
+          <span className="text-obsidian/20 text-2xl font-serif italic">✈</span>
           <div className="w-12 h-[1px] bg-obsidian/10"></div>
         </div>
         <h2 className="font-serif text-6xl md:text-8xl tracking-tighter leading-none mb-4">
-          Find Your <br/><span className="italic text-gold-500">Horizon.</span>
+          Your Flight<br/><span className="italic text-gold-500">Begins Here.</span>
         </h2>
         <p className="font-sans text-sm text-obsidian/50 tracking-[0.2em] uppercase mt-8 mb-16 max-w-lg mx-auto">
-          Every journey begins with a conversation. Let us guide you somewhere extraordinary.
+          Book your next journey with SkyBound. Let us take you somewhere unforgettable.
         </p>
         <div className="flex flex-wrap gap-8 justify-center font-sans tracking-[0.25em] text-xs uppercase">
-          {['Plan an Expedition', 'Contact a Guide', 'Group Inquiries'].map((link) => (
+          {['Book a Flight', 'Private Charters', 'Loyalty Programme'].map((link) => (
             <a key={link} href="#" className="relative group">
               <span className="text-obsidian/60 group-hover:text-obsidian transition-colors duration-500">{link}</span>
               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gold-500/60 group-hover:w-full transition-all duration-500"></span>
@@ -364,21 +363,30 @@ function ContactExhibit({ zOffset }: { zOffset: number }) {
         </div>
         <div className="flex items-center justify-center gap-4 mt-20 mb-12">
           <div className="w-8 h-[1px] bg-obsidian/8"></div>
-          <span className="text-obsidian/10 text-lg font-serif italic">✦</span>
+          <span className="text-obsidian/10 text-lg font-serif italic">✈</span>
           <div className="w-8 h-[1px] bg-obsidian/8"></div>
         </div>
-        <p className="font-sans text-[9px] text-obsidian/30 tracking-[0.4em] uppercase">&copy; 2026 WANDERFAR. ALL RIGHTS RESERVED.</p>
+        <p className="font-sans text-[9px] text-obsidian/30 tracking-[0.4em] uppercase">&copy; 2026 SKYBOUND AIRWAYS. ALL RIGHTS RESERVED.</p>
       </div>
     </div>
   );
 }
 
-/* ─── Mobile stacked layout ─── */
+/* ─── Mobile Layout with GSAP scroll animations ─────────────────────────── */
 
-function MobileSection({ children, overlay = true }: { children: React.ReactNode; overlay?: boolean }) {
+interface MobileSectionProps {
+  children: React.ReactNode;
+  overlay?: boolean;
+  sectionRef?: React.RefObject<HTMLElement>;
+}
+
+function MobileSection({ children, overlay = true, sectionRef }: MobileSectionProps) {
   return (
-    <section className="min-h-screen w-full flex items-center justify-center px-6 py-20 relative">
-      {overlay && <div className="absolute inset-0 bg-obsidian/60" />}
+    <section
+      ref={sectionRef}
+      className="min-h-screen w-full flex items-center justify-center px-5 py-20 relative"
+    >
+      {overlay && <div className="absolute inset-0 bg-obsidian/65" />}
       <div className="relative z-10 w-full max-w-lg mx-auto text-center">
         {children}
       </div>
@@ -387,194 +395,242 @@ function MobileSection({ children, overlay = true }: { children: React.ReactNode
 }
 
 function MobileHomePage() {
-  const journeyItems = [
-    { name: 'The Highlands', region: 'Scotland', image: galleryImages[0] },
-    { name: 'Costa Esmeralda', region: 'Sardinia', image: galleryImages[2] },
-    { name: 'Annapurna Circuit', region: 'Nepal', image: galleryImages[3] },
-    { name: 'The Fjords', region: 'Norway', image: galleryImages[1] },
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const destItems = [
+    { name: 'Tokyo', region: 'Japan', image: galleryImages[0] },
+    { name: 'Santorini', region: 'Greece', image: galleryImages[2] },
+    { name: 'Maldives', region: 'Indian Ocean', image: galleryImages[3] },
+    { name: 'Patagonia', region: 'Chile', image: galleryImages[1] },
   ];
 
-  const steps = [
-    { image: experienceImages[0], title: 'Trekking', desc: 'Footpaths carved by time through the world\'s greatest ranges.' },
-    { image: experienceImages[1], title: 'Immersion', desc: 'Living alongside cultures that still dance to ancient rhythms.' },
-    { image: experienceImages[2], title: 'Discovery', desc: 'Moments of quiet awe that forever change how you see the world.' },
+  const classes = [
+    { image: experienceImages[0], title: 'First Class', desc: 'Lie-flat suites and curated skies.' },
+    { image: experienceImages[1], title: 'Business', desc: 'Spacious comfort, seamless productivity.' },
+    { image: experienceImages[2], title: 'Panorama', desc: "Views you'll always return to." },
   ];
 
   const milestones = [
-    { year: '2012', label: 'Wanderfar founded in Reykjavik' },
-    { year: '2014', label: 'First Patagonia expedition' },
-    { year: '2017', label: 'Basecamp opens in Nepal' },
-    { year: '2021', label: 'Sustainable travel initiative' },
-    { year: '2026', label: 'Two hundred itineraries worldwide' },
+    { year: '2008', label: 'SkyBound founded, Mumbai–Dubai' },
+    { year: '2011', label: 'Transatlantic routes open' },
+    { year: '2015', label: 'First Class Suite launched' },
+    { year: '2020', label: 'Sustainable aviation fuel initiative' },
+    { year: '2026', label: '120 destinations, 6 continents' },
   ];
 
   const press = [
-    { quote: "Wanderfar doesn't just plan trips, they uncover a kind of magic that most travelers spend a lifetime searching for.", author: 'Condé Nast Traveler' },
-    { quote: "The depth of their local knowledge is felt in every turn of the road.", author: 'National Geographic' },
-    { quote: "It is rare to find such uncompromising dedication to authentic travel.", author: 'The Financial Times' },
-    { quote: "They don't follow trends. They forge the paths that others will follow years later.", author: 'Travel + Leisure' },
+    { quote: "SkyBound has made flying genuinely aspirational again.", author: 'Condé Nast Traveler' },
+    { quote: "The First Class Suite is a masterclass in luxury at altitude.", author: 'Wallpaper*' },
+    { quote: "An airline that treats every passenger as a guest.", author: 'The Financial Times' },
+    { quote: "They don't sell seats. They sell arrival at a feeling.", author: 'Travel + Leisure' },
   ];
 
+  useGSAP(() => {
+    // Each section slides up from below and fades in
+    const sections = gsap.utils.toArray<HTMLElement>('.mobile-section');
+    sections.forEach((section) => {
+      const inner = section.querySelector('.mobile-section-inner');
+      gsap.fromTo(
+        inner,
+        { y: 80, opacity: 0, scale: 0.97 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            end: 'top 30%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
+  }, { scope: containerRef });
+
   return (
-    <div className="w-full text-ivory relative z-[3]">
-      <MobileSection>
-        <div className="flex items-center justify-center gap-3 mb-8">
-          <div className="w-8 h-[1px] bg-ivory/10"></div>
-          <span className="text-ivory/20 text-sm font-serif italic">✦</span>
-          <div className="w-8 h-[1px] bg-ivory/10"></div>
-        </div>
-        <p className="font-sans text-xs tracking-[0.35em] uppercase text-ivory/40 mb-6">Wanderfar</p>
-        <h1 className="font-serif text-4xl text-ivory/80 leading-tight mb-6">
-          A Journey Across<br/>
-          <span className="italic text-champagne">the World</span>
-        </h1>
-        <p className="font-sans text-sm text-ivory/40 tracking-widest uppercase">Scroll to explore</p>
-      </MobileSection>
+    <div ref={containerRef} className="w-full text-ivory relative z-[3]">
 
-      <MobileSection overlay={false}>
-        <span className="font-sans text-[10px] tracking-[0.35em] uppercase text-champagne/50 mb-6 block">Wanderfar — Est. 2012</span>
-        <h2 className="font-serif text-5xl tracking-tight mb-6 leading-none">
-          Explore the <br/> <span className="italic text-champagne">Unseen.</span>
-        </h2>
-        <p className="font-sans text-sm tracking-[0.2em] uppercase text-ivory/50 max-w-xs mx-auto mb-10">
-          Where every path leads to discovery.
-        </p>
-        <button className="uppercase font-sans tracking-[0.3em] text-[10px] border border-ivory/20 px-6 py-3">
-          Begin the Journey
-        </button>
-      </MobileSection>
-
-      <MobileSection overlay={false}>
-        <div className="bg-ivory/70 backdrop-blur-lg p-6 text-left">
-          <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500 mb-3">The Atlas</p>
-          <h2 className="font-serif text-4xl leading-tight mb-4 text-obsidian/80">
-            Where Wild<br/>
-            <span className="italic text-obsidian/60">Meets Wonder</span>
-          </h2>
-          <p className="font-sans text-sm text-obsidian/70 leading-relaxed mb-6 border-l-2 border-gold-500/30 pl-4">
-            Since 2012, Wanderfar has pursued a singular vision: to reveal the world's
-            most quietly held secrets.
-          </p>
-          <div className="flex gap-6 justify-between">
-            <div className="text-center">
-              <p className="font-serif text-3xl text-gold-500">60+</p>
-              <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-obsidian/50 mt-1">Countries</p>
-            </div>
-            <div className="text-center">
-              <p className="font-serif text-3xl text-gold-500">4</p>
-              <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-obsidian/50 mt-1">Continents</p>
-            </div>
-            <div className="text-center">
-              <p className="font-serif text-3xl text-gold-500">200+</p>
-              <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-obsidian/50 mt-1">Itineraries</p>
-            </div>
+      {/* Hero */}
+      <section className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
+        <div className="absolute inset-0 bg-obsidian/65" />
+        <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <div className="w-8 h-[1px] bg-ivory/10"></div>
+            <span className="text-ivory/30 text-base font-serif italic">✈</span>
+            <div className="w-8 h-[1px] bg-ivory/10"></div>
+          </div>
+          <p className="font-sans text-xs tracking-[0.35em] uppercase text-ivory/40 mb-5">SkyBound Airways</p>
+          <h1 className="font-serif text-4xl text-ivory/85 leading-tight mb-5">
+            Above the Clouds,<br/>
+            <span className="italic text-champagne">Beyond Borders</span>
+          </h1>
+          <p className="font-sans text-sm text-ivory/40 tracking-widest uppercase">Scroll to take flight</p>
+          <div className="mt-10 animate-bounce text-ivory/20">
+            <svg className="w-5 h-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+              <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
           </div>
         </div>
-        <p className="font-serif text-xs italic text-ivory/50 mt-6 px-4">
-          "The world is a book. Those who do not travel read only one page."
-        </p>
-      </MobileSection>
+      </section>
 
-      <MobileSection>
-        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/60 mb-4">Curated</p>
-        <h2 className="font-serif text-3xl italic text-ivory/80 mb-8">Signature Journeys</h2>
-        <div className="grid grid-cols-2 gap-3">
-          {journeyItems.map((item) => (
-            <div key={item.name} className="overflow-hidden border border-champagne/15">
-              <div className="h-32 overflow-hidden">
-                <img src={item.image} className="w-full h-full object-cover" alt={item.name} />
+      {/* About */}
+      <section className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
+        <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto">
+          <div className="bg-ivory/75 backdrop-blur-lg p-6 text-left shadow-xl">
+            <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500 mb-3">Our Fleet</p>
+            <h2 className="font-serif text-4xl leading-tight mb-4 text-obsidian/85">
+              Where Sky<br/>
+              <span className="italic text-obsidian/55">Meets Luxury</span>
+            </h2>
+            <p className="font-sans text-sm text-obsidian/70 leading-relaxed mb-6 border-l-2 border-gold-500/30 pl-4">
+              Since 2008, SkyBound has redefined what it means to fly, connecting over 120 cities across six continents.
+            </p>
+            <div className="flex gap-4 justify-between">
+              <div className="text-center">
+                <p className="font-serif text-3xl text-gold-500">120+</p>
+                <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-obsidian/50 mt-1">Destinations</p>
               </div>
-              <div className="bg-ivory/70 backdrop-blur-lg px-3 py-2">
-                <p className="font-sans text-[8px] tracking-[0.25em] uppercase text-gold-500">{item.region}</p>
-                <p className="font-serif text-sm text-obsidian/80">{item.name}</p>
+              <div className="text-center">
+                <p className="font-serif text-3xl text-gold-500">6</p>
+                <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-obsidian/50 mt-1">Continents</p>
+              </div>
+              <div className="text-center">
+                <p className="font-serif text-3xl text-gold-500">48</p>
+                <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-obsidian/50 mt-1">Aircraft</p>
               </div>
             </div>
-          ))}
-        </div>
-      </MobileSection>
-
-      <MobileSection>
-        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500 mb-4">Experience</p>
-        <h2 className="font-serif text-4xl leading-tight mb-8">
-          The Traveler's <span className="italic text-gold-500">Way</span>
-        </h2>
-        <div className="space-y-4">
-          {steps.map((step, i) => (
-            <div key={step.title} className="flex gap-4 items-start">
-              <div className="w-20 h-20 shrink-0 overflow-hidden border border-champagne/10">
-                <img src={step.image} className="w-full h-full object-cover" alt={step.title} />
-              </div>
-              <div className="text-left">
-                <p className="font-sans text-[9px] tracking-[0.3em] uppercase text-gold-500/60">0{i + 1}</p>
-                <h3 className="font-serif text-lg text-ivory/90">{step.title}</h3>
-                <p className="font-sans text-xs text-ivory/50 leading-relaxed">{step.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </MobileSection>
-
-      <MobileSection>
-        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/50 mb-4">Heritage</p>
-        <h2 className="font-serif text-4xl leading-none mb-8">
-          Born from <br/><span className="italic text-champagne">Wanderlust.</span>
-        </h2>
-        <div className="space-y-4 text-left max-w-xs mx-auto">
-          {milestones.map((m) => (
-            <div key={m.year} className="flex gap-4 items-center">
-              <div className="w-16 text-right shrink-0">
-                <p className="font-serif text-lg text-gold-500">{m.year}</p>
-              </div>
-              <div className="w-[1px] h-8 bg-champagne/20" />
-              <div>
-                <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-ivory/60">{m.label}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </MobileSection>
-
-      <MobileSection>
-        <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/50 mb-4">In the Press</p>
-        <div className="space-y-3 text-left">
-          {press.map((p, i) => (
-            <div key={i} className="bg-ivory/70 backdrop-blur-lg p-4 border-l-4 border-gold-500/40">
-              <p className="font-serif text-sm leading-relaxed text-obsidian/80 mb-2">"{p.quote}"</p>
-              <p className="font-sans text-[9px] tracking-[0.2em] uppercase text-gold-500">{p.author}</p>
-            </div>
-          ))}
-        </div>
-      </MobileSection>
-
-      <MobileSection overlay={false}>
-        <div className="bg-ivory/70 backdrop-blur-lg px-6 py-10">
-          <div className="flex items-center justify-center gap-4 mb-10">
-            <div className="w-8 h-[1px] bg-obsidian/10"></div>
-            <span className="text-obsidian/20 text-lg font-serif italic">✦</span>
-            <div className="w-8 h-[1px] bg-obsidian/10"></div>
           </div>
-          <h2 className="font-serif text-5xl tracking-tighter leading-none mb-4">
-            Find Your <br/><span className="italic text-gold-500">Horizon.</span>
-          </h2>
-          <p className="font-sans text-xs text-obsidian/50 tracking-[0.2em] uppercase mt-6 mb-10">
-            Every journey begins with a conversation.
+          <p className="font-serif text-xs italic text-ivory/50 mt-5 px-4">
+            "The sky is not the limit — it's the beginning."
           </p>
-          <div className="flex flex-col gap-4 font-sans tracking-[0.25em] text-xs uppercase">
-            {['Plan an Expedition', 'Contact a Guide', 'Group Inquiries'].map((link) => (
-              <a key={link} href="#" className="text-obsidian/60 hover:text-obsidian transition-colors">{link}</a>
+        </div>
+      </section>
+
+      {/* Destinations */}
+      <section className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
+        <div className="absolute inset-0 bg-obsidian/65" />
+        <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
+          <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/60 mb-4">Routes</p>
+          <h2 className="font-serif text-3xl italic text-ivory/80 mb-8">Signature Destinations</h2>
+          <div className="grid grid-cols-2 gap-3">
+            {destItems.map((item) => (
+              <div key={item.name} className="overflow-hidden border border-champagne/15">
+                <div className="h-28 overflow-hidden">
+                  <img src={item.image} className="w-full h-full object-cover" alt={item.name} />
+                </div>
+                <div className="bg-ivory/70 backdrop-blur-lg px-3 py-2">
+                  <p className="font-sans text-[8px] tracking-[0.25em] uppercase text-gold-500">{item.region}</p>
+                  <p className="font-serif text-sm text-obsidian/80">{item.name}</p>
+                </div>
+              </div>
             ))}
           </div>
-          <div className="flex items-center justify-center gap-4 mt-10 mb-6">
-            <div className="w-8 h-[1px] bg-obsidian/8"></div>
-            <span className="text-obsidian/10 text-sm font-serif italic">✦</span>
-            <div className="w-8 h-[1px] bg-obsidian/8"></div>
-          </div>
-          <p className="font-sans text-[8px] text-obsidian/30 tracking-[0.4em] uppercase">&copy; 2026 WANDERFAR</p>
         </div>
-      </MobileSection>
+      </section>
+
+      {/* Cabin Classes */}
+      <section className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
+        <div className="absolute inset-0 bg-obsidian/65" />
+        <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
+          <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500 mb-4">Cabin Experience</p>
+          <h2 className="font-serif text-4xl leading-tight mb-8">
+            The SkyBound <span className="italic text-gold-500">Difference</span>
+          </h2>
+          <div className="space-y-4">
+            {classes.map((cls, i) => (
+              <div key={cls.title} className="flex gap-4 items-start">
+                <div className="w-20 h-20 shrink-0 overflow-hidden border border-champagne/10">
+                  <img src={cls.image} className="w-full h-full object-cover" alt={cls.title} />
+                </div>
+                <div className="text-left">
+                  <p className="font-sans text-[9px] tracking-[0.3em] uppercase text-gold-500/60">0{i + 1}</p>
+                  <h3 className="font-serif text-lg text-ivory/90">{cls.title}</h3>
+                  <p className="font-sans text-xs text-ivory/50 leading-relaxed">{cls.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Heritage */}
+      <section className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
+        <div className="absolute inset-0 bg-obsidian/65" />
+        <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
+          <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/50 mb-4">Heritage</p>
+          <h2 className="font-serif text-4xl leading-none mb-8">
+            Built for<br/><span className="italic text-champagne">the Sky.</span>
+          </h2>
+          <div className="space-y-4 text-left max-w-xs mx-auto">
+            {milestones.map((m) => (
+              <div key={m.year} className="flex gap-4 items-center">
+                <div className="w-16 text-right shrink-0">
+                  <p className="font-serif text-lg text-gold-500">{m.year}</p>
+                </div>
+                <div className="w-[1px] h-8 bg-champagne/20" />
+                <div>
+                  <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-ivory/60">{m.label}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Press */}
+      <section className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
+        <div className="absolute inset-0 bg-obsidian/65" />
+        <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
+          <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-gold-500/50 mb-4">In the Press</p>
+          <div className="space-y-3 text-left">
+            {press.map((p, i) => (
+              <div key={i} className="bg-ivory/70 backdrop-blur-lg p-4 border-l-4 border-gold-500/40">
+                <p className="font-serif text-sm leading-relaxed text-obsidian/80 mb-2">"{p.quote}"</p>
+                <p className="font-sans text-[9px] tracking-[0.2em] uppercase text-gold-500">{p.author}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact / CTA */}
+      <section className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
+        <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto">
+          <div className="bg-ivory/75 backdrop-blur-lg px-6 py-10 shadow-xl">
+            <div className="flex items-center justify-center gap-4 mb-10">
+              <div className="w-8 h-[1px] bg-obsidian/10"></div>
+              <span className="text-obsidian/20 text-lg font-serif italic">✈</span>
+              <div className="w-8 h-[1px] bg-obsidian/10"></div>
+            </div>
+            <h2 className="font-serif text-5xl tracking-tighter leading-none mb-4 text-center">
+              Your Flight<br/><span className="italic text-gold-500">Begins Here.</span>
+            </h2>
+            <p className="font-sans text-xs text-obsidian/50 tracking-[0.2em] uppercase mt-6 mb-10 text-center">
+              Book your next journey with SkyBound.
+            </p>
+            <div className="flex flex-col gap-4 font-sans tracking-[0.25em] text-xs uppercase text-center">
+              {['Book a Flight', 'Private Charters', 'Loyalty Programme'].map((link) => (
+                <a key={link} href="#" className="text-obsidian/60 hover:text-obsidian transition-colors py-2 border border-obsidian/10 hover:border-obsidian/30">{link}</a>
+              ))}
+            </div>
+            <div className="flex items-center justify-center gap-4 mt-10 mb-6">
+              <div className="w-8 h-[1px] bg-obsidian/8"></div>
+              <span className="text-obsidian/10 text-sm font-serif italic">✈</span>
+              <div className="w-8 h-[1px] bg-obsidian/8"></div>
+            </div>
+            <p className="font-sans text-[8px] text-obsidian/30 tracking-[0.4em] uppercase text-center">&copy; 2026 SKYBOUND AIRWAYS</p>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
+
+/* ─── Desktop 3D scroll layout ───────────────────────────────────────── */
 
 export default function HomePage() {
   const isMobile = useIsMobile();
@@ -619,10 +675,10 @@ export default function HomePage() {
           <div ref={sceneRef} className="w-full h-full preserve-3d absolute inset-0">
              <PrologueExhibit zOffset={2500} />
              <HeroExhibit />
-             <DestinationsExhibit zOffset={-2500} />
-             <JourneysExhibit zOffset={-5500} />
-             <ExperienceExhibit zOffset={-8500} />
-             <HeritageExhibit zOffset={-11500} />
+             <RoutesExhibit zOffset={-2500} />
+             <DestinationsExhibit zOffset={-5500} />
+             <ClassesExhibit zOffset={-8500} />
+             <LegacyExhibit zOffset={-11500} />
              <PressExhibit zOffset={-14500} />
              <ContactExhibit zOffset={-17500} />
              <EpilogueExhibit zOffset={-20000} />
