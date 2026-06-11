@@ -1,113 +1,121 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import AHRS from 'ahrs';
+
+export interface GyroAngles {
+  heading: number;
+  pitch: number;
+  roll: number;
+}
 
 export interface GyroState {
-  alpha: number;
-  beta: number;
-  gamma: number;
+  anglesRef: { current: GyroAngles };
   isActive: boolean;
   isSupported: boolean;
   permissionRequired: boolean;
+  requestPermission: () => void;
 }
 
-export function useGyro() {
-  const [state, setState] = useState<GyroState>({
-    alpha: 0,
-    beta: 0,
-    gamma: 0,
-    isActive: false,
-    isSupported: false,
-    permissionRequired: false,
-  });
+export function useGyro(): GyroState {
+  const [isActive, setIsActive] = useState(false);
+  const [isSupported, setIsSupported] = useState(false);
+  const [permissionRequired, setPermissionRequired] = useState(false);
 
-  const smoothBeta = useRef(0);
-  const smoothGamma = useRef(0);
+  const anglesRef = useRef<GyroAngles>({ heading: 0, pitch: 0, roll: 0 });
+  const ahrsRef = useRef<AHRS | null>(null);
+  const lastTimeRef = useRef(0);
   const activeRef = useRef(false);
-  const handlerRef = useRef<((e: DeviceOrientationEvent) => void) | null>(null);
-  const iosCheck = useRef<boolean | null>(null);
+  const handlerRef = useRef<((e: DeviceMotionEvent) => void) | null>(null);
 
-  if (iosCheck.current === null) {
-    iosCheck.current = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  }
-
-  const isIOS = iosCheck.current;
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
   const needsPermission =
     isIOS &&
-    typeof DeviceOrientationEvent !== 'undefined' &&
-    typeof (DeviceOrientationEvent as any).requestPermission === 'function';
+    typeof DeviceMotionEvent !== 'undefined' &&
+    typeof (DeviceMotionEvent as any).requestPermission === 'function';
 
-  const handleOrientation = useCallback((event: DeviceOrientationEvent) => {
-    const b = event.beta ?? 0;
-    const g = event.gamma ?? 0;
-    smoothBeta.current += (b - smoothBeta.current) * 0.12;
-    smoothGamma.current += (g - smoothGamma.current) * 0.12;
+  if (!ahrsRef.current) {
+    ahrsRef.current = new AHRS({
+      sampleInterval: 20,
+      algorithm: 'Madgwick',
+      beta: 0.4,
+      doInitialisation: true,
+    });
+  }
+
+  const handleMotion = useCallback((event: DeviceMotionEvent) => {
+    const accel = event.accelerationIncludingGravity;
+    const gyro = event.rotationRate;
+    if (!accel || !gyro) return;
+
+    const ax = (accel.x ?? 0) / 9.81;
+    const ay = (accel.y ?? 0) / 9.81;
+    const az = (accel.z ?? 0) / 9.81;
+
+    const gx = (gyro.alpha ?? 0) * Math.PI / 180;
+    const gy = (gyro.beta ?? 0) * Math.PI / 180;
+    const gz = (gyro.gamma ?? 0) * Math.PI / 180;
+
+    const now = performance.now();
+    const dt = lastTimeRef.current ? (now - lastTimeRef.current) / 1000 : 1 / 20;
+    lastTimeRef.current = now;
+
+    const ahrs = ahrsRef.current;
+    if (!ahrs) return;
+
+    ahrs.update(gx, gy, gz, ax, ay, az, undefined, undefined, undefined, dt);
+
+    const euler = ahrs.getEulerAnglesDegrees();
+    anglesRef.current = {
+      heading: euler.heading,
+      pitch: euler.pitch,
+      roll: euler.roll,
+    };
 
     if (!activeRef.current) {
       activeRef.current = true;
+      setIsActive(true);
     }
-
-    setState({
-      alpha: event.alpha ?? 0,
-      beta: smoothBeta.current,
-      gamma: smoothGamma.current,
-      isActive: true,
-      isSupported: true,
-      permissionRequired: false,
-    });
   }, []);
 
   const requestPermission = useCallback(() => {
     if (activeRef.current) return;
 
+    const startListening = () => {
+      window.addEventListener('devicemotion', handleMotion);
+      handlerRef.current = handleMotion;
+    };
+
     if (needsPermission) {
-      (DeviceOrientationEvent as any)
+      (DeviceMotionEvent as any)
         .requestPermission()
         .then((permState: string) => {
-          if (permState === 'granted') {
-            handlerRef.current = handleOrientation;
-            window.addEventListener('deviceorientation', handleOrientation);
-          } else {
-            setState((prev) => ({ ...prev, permissionRequired: false }));
-          }
+          if (permState === 'granted') startListening();
+          setPermissionRequired(false);
         })
-        .catch(() => {
-          setState((prev) => ({ ...prev, permissionRequired: false }));
-        });
+        .catch(() => setPermissionRequired(false));
     } else {
-      window.addEventListener('deviceorientation', handleOrientation);
-      handlerRef.current = handleOrientation;
+      startListening();
     }
-
-    setState((prev) => ({ ...prev, permissionRequired: false }));
-  }, [handleOrientation, needsPermission]);
+  }, [handleMotion, needsPermission]);
 
   useEffect(() => {
-    const supported =
-      typeof DeviceOrientationEvent !== 'undefined' &&
-      typeof (DeviceOrientationEvent as any).requestPermission !== 'function' &&
-      typeof DeviceOrientationEvent !== 'undefined';
+    const supported = typeof DeviceMotionEvent !== 'undefined';
+    if (!supported) return;
 
-    if (!needsPermission && supported) {
-      window.addEventListener('deviceorientation', handleOrientation);
-      handlerRef.current = handleOrientation;
-      setState((prev) => ({
-        ...prev,
-        isSupported: true,
-        permissionRequired: false,
-      }));
-    } else if (needsPermission) {
-      setState((prev) => ({
-        ...prev,
-        isSupported: true,
-        permissionRequired: true,
-      }));
+    if (!needsPermission) {
+      window.addEventListener('devicemotion', handleMotion);
+      handlerRef.current = handleMotion;
+      setIsSupported(true);
+    } else {
+      setIsSupported(true);
+      setPermissionRequired(true);
     }
 
     return () => {
       if (handlerRef.current) {
-        window.removeEventListener('deviceorientation', handlerRef.current);
+        window.removeEventListener('devicemotion', handlerRef.current);
       }
     };
-  }, [handleOrientation, needsPermission]);
+  }, [handleMotion, needsPermission]);
 
-  return { ...state, requestPermission };
+  return { anglesRef, isActive, isSupported, permissionRequired, requestPermission };
 }

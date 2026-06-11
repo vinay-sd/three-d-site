@@ -47,13 +47,13 @@ function CommitmentSection({ zOffset }: { zOffset: number }) {
         <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-brand-tertiary/60 mb-4">Our Commitment</p>
         <div className="flex items-center justify-center gap-4 mb-8">
           <div className="w-10 h-[1px] bg-ivory/20"></div>
-          <span className="text-obsidian/30 text-lg font-serif italic\">â˜…</span>
+          <span className="text-obsidian/30 text-lg font-serif italic\">★</span>
           <div className="w-10 h-[1px] bg-ivory/20"></div>
         </div>
         <div className="flex flex-wrap justify-center gap-3 text-left max-w-sm mx-auto">
           {commitments.map((c) => (
             <div key={c} className="flex items-center gap-3 w-[140px]">
-              <span className="text-brand-tertiary text-sm">âœ“</span>
+              <span className="text-brand-tertiary text-sm">✓</span>
               <span className="font-sans text-xs text-obsidian/70">{c}</span>
             </div>
           ))}
@@ -104,7 +104,7 @@ function ContactSection({ zOffset }: { zOffset: number }) {
   );
 }
 
-/* â”€â”€â”€ Mobile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Mobile ──────────────────────────────────────────────── */
 
 function MobileAboutPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -137,8 +137,9 @@ function MobileAboutPage() {
           y: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out',
           scrollTrigger: {
             trigger: section,
-            start: 'top 80%',
+            start: 'top 85%',
             toggleActions: 'play none none reverse',
+            once: true,
           },
         }
       );
@@ -148,17 +149,16 @@ function MobileAboutPage() {
   return (
     <div ref={containerRef} className="w-full text-ivory relative z-[3]">
 
-      <section className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
-        <div className="absolute inset-0 bg-ivory/10" />
+      <section className="mobile-section w-full px-5 py-16 relative">
         <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="w-8 h-[1px] bg-ivory/10"></div>
+            <div className="w-8 h-[1px] bg-ivory/20"></div>
             <span className="text-ivory/30 font-serif italic">&#9670;</span>
-            <div className="w-8 h-[1px] bg-ivory/10"></div>
+            <div className="w-8 h-[1px] bg-ivory/20"></div>
           </div>
           <h1 className="font-serif text-3xl md:text-4xl text-ivory leading-tight mb-5">
             Travel Experiences<br/>
-            <span className="italic text-brand-dark">Designed Around You</span>
+            <span className="italic text-gold-600">Designed Around You</span>
           </h1>
           <p className="font-sans text-sm text-ivory/50 tracking-widest uppercase">
             Exciting, comfortable, and worry-free travel.
@@ -166,66 +166,60 @@ function MobileAboutPage() {
         </div>
       </section>
 
-      <section className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
-        <div className="absolute inset-0 bg-ivory/10" />
+      <section className="mobile-section w-full px-5 py-16 relative">
         <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
-          <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-brand-tertiary/60 mb-4">What Makes Us Different</p>
-          <div className="flex flex-wrap gap-2 justify-center text-left">
+          <p className="font-sans text-[11px] tracking-[0.35em] uppercase text-ivory/50 mb-6">What Makes Us Different</p>
+          <div className="flex flex-col gap-3 text-left px-2">
             {items.map((item) => (
-              <div key={item.title} className="w-[180px] bg-ivory/60 backdrop-blur-xl border border-ivory/5 p-2 text-left rounded-sm">
-                <h3 className="font-serif text-sm text-brand-dark mb-1">{item.title}</h3>
-                <p className="font-sans text-[10px] text-brand-dark/60">{item.desc}</p>
+              <div key={item.title} className="p-3 border border-ivory/10">
+                <h3 className="font-serif text-sm text-ivory mb-1">{item.title}</h3>
+                <p className="font-sans text-xs text-ivory/60 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
-        <div className="absolute inset-0 bg-ivory/10" />
+      <section className="mobile-section w-full px-5 py-16 relative">
         <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
-          <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-brand-tertiary/60 mb-4">Our Commitment</p>
-          <div className="flex flex-wrap gap-2 justify-center text-left max-w-xs mx-auto">
+          <p className="font-sans text-[11px] tracking-[0.35em] uppercase text-ivory/50 mb-6">Our Commitment</p>
+          <div className="flex flex-col gap-3 px-2">
             {commitments.map((c) => (
-              <div key={c} className="flex items-center gap-2 bg-ivory/60 backdrop-blur-xl p-2 rounded-sm">
-                <span className="text-brand-tertiary text-sm">&#10003;</span>
-                <span className="font-sans text-xs text-brand-dark/70">{c}</span>
+              <div key={c} className="flex items-center gap-3 p-3 border border-ivory/10">
+                <span className="text-gold-600 text-sm shrink-0">&#10003;</span>
+                <span className="font-sans text-xs text-ivory/70">{c}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
-        <div className="absolute inset-0 bg-ivory/10" />
+      <section className="mobile-section w-full px-5 py-16 relative">
         <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
-          <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-brand-tertiary/60 mb-4">FAQ</p>
-          <div className="flex flex-wrap gap-2 justify-center">
+          <p className="font-sans text-[11px] tracking-[0.35em] uppercase text-ivory/50 mb-6">FAQ</p>
+          <div className="flex flex-col gap-3 px-2">
             {faqs.map((faq) => (
-              <div key={faq.q} className="w-[260px] bg-ivory/60 backdrop-blur-xl border border-ivory/5 p-2">
-                <h3 className="font-serif text-xs text-brand-dark mb-1">{faq.q}</h3>
-                <p className="font-sans text-[10px] text-brand-dark/50">{faq.a}</p>
+              <div key={faq.q} className="p-3 border border-ivory/10 text-left">
+                <h3 className="font-serif text-sm text-ivory mb-1">{faq.q}</h3>
+                <p className="font-sans text-xs text-ivory/60 leading-relaxed">{faq.a}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
-        <div className="absolute inset-0 bg-ivory/10" />
+      <section className="mobile-section w-full px-5 py-16 relative">
         <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
-          <div className="bg-ivory/60 backdrop-blur-xl px-5 py-8">
-            <h2 className="font-serif text-2xl leading-tight text-obsidian/80 mb-3">
-              Speak With A<br/><span className="italic text-brand-primary">Travel Expert</span>
-            </h2>
-            <p className="font-sans text-[10px] text-obsidian/50 mb-6">
-              Get personalized recommendations and start planning your next adventure.
-            </p>
-            <button className="uppercase font-sans tracking-[0.3em] text-[10px] bg-obsidian text-ivory px-6 py-3 w-full hover:bg-obsidian/80 transition-all">
-              Contact Us
-            </button>
-            <p className="font-sans text-[7px] text-obsidian/30 tracking-[0.4em] uppercase text-center mt-8">&copy; 2026 VEENA WORLD</p>
-          </div>
+          <h2 className="font-serif text-2xl leading-tight text-ivory mb-3">
+            Speak With A<br/><span className="italic text-gold-600">Travel Expert</span>
+          </h2>
+          <p className="font-sans text-xs text-ivory/60 mb-6 px-2">
+            Get personalized recommendations and start planning your next adventure.
+          </p>
+          <button className="uppercase font-sans tracking-[0.3em] text-[10px] bg-ivory text-obsidian px-6 py-3 w-full hover:bg-ivory/80 transition-all">
+            Contact Us
+          </button>
+          <p className="font-sans text-[7px] text-ivory/30 tracking-[0.4em] uppercase mt-8">&copy; 2026 VEENA WORLD</p>
         </div>
       </section>
 
@@ -233,7 +227,7 @@ function MobileAboutPage() {
   );
 }
 
-/* â”€â”€â”€ Desktop â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Desktop ─────────────────────────────────────────────── */
 
 export default function FlightLogPage() {
   const isMobile = useIsMobile();
@@ -292,5 +286,3 @@ export default function FlightLogPage() {
     </div>
   );
 }
-
-

@@ -36,8 +36,16 @@ body {
 }
 
 /* Utilities for 3D */
+.crisp-text {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translateZ(0);
+}
+
 .preserve-3d {
   transform-style: preserve-3d;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .perspective-1000 {
@@ -89,29 +97,7 @@ img {
   image-rendering: crisp-edges;
 }
 
-/* Glass effect utilities */
-.glass-effect {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(252, 252, 252, 0.3);
-  border: 1px solid rgba(252, 252, 252, 0.1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
 
-.glass-effect-dark {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(5, 5, 5, 0.3);
-  border: 1px solid rgba(252, 252, 252, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.glass-effect-subtle {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  background: rgba(252, 252, 252, 0.08);
-  border: 1px solid rgba(252, 252, 252, 0.05);
-}
 
 /* xyro badge */
 #xyro-badge {
@@ -119,18 +105,16 @@ img {
   bottom: 24px;
   right: 24px;
   z-index: 1000;
-  background: rgba(5,5,5,0.7);
-  border: 1px solid rgba(238,217,188,0.2);
-  color: rgba(238,217,188,0.6);
+  background: #050505;
+  border: 1px solid rgba(238,217,188,0.15);
+  color: rgba(238,217,188,0.5);
   font-family: 'Inter', sans-serif;
   font-size: 9px;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  padding: 6px 14px;
+  padding: 5px 12px;
   pointer-events: none;
   animation: xyroFadeIn 0.8s ease forwards;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 }
 
 @keyframes xyroFadeIn {

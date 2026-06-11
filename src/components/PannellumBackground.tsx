@@ -1,13 +1,13 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useGyro } from '../hooks/useGyro';
 
 declare global { const pannellum: any; }
 
 const focalPoints: Record<string, { yaw: number; pitch: number; hfov: number }> = {
-  '/': { yaw: 0, pitch: -5, hfov: 100 },
-  '/routes': { yaw: 120, pitch: -5, hfov: 100 },
-  '/flight-log': { yaw: 240, pitch: -5, hfov: 100 },
+  '/': { yaw: 0, pitch: 0, hfov: 100 },
+  '/routes': { yaw: 120, pitch: 0, hfov: 100 },
+  '/flight-log': { yaw: 240, pitch: 0, hfov: 100 },
 };
 
 function easeInOutCubic(t: number): number {
@@ -32,12 +32,25 @@ export default function PannellumBackground() {
   const viewerRef = useRef<any>(null);
   const loadedRef = useRef(false);
   const animRef = useRef<{ cancelled: boolean } | null>(null);
+  const gyroCalRef = useRef<{ heading: number; pitch: number } | null>(null);
+  const gyroLoopRef = useRef(0);
+  const [useFallback, setUseFallback] = useState(false);
   const location = useLocation();
   const mobile = isMobile();
 
   const gyro = useGyro();
 
   useEffect(() => {
+    if (!mobile) return;
+    const t = setTimeout(() => {
+      if (!gyro.isActive) setUseFallback(true);
+    }, 3000);
+    return () => clearTimeout(t);
+  }, [mobile, gyro.isActive]);
+
+  useEffect(() => {
+    if (useFallback) return;
+
     const el = divRef.current;
     if (!el) return;
 
@@ -50,7 +63,7 @@ export default function PannellumBackground() {
       panorama: '/360.jpeg',
       autoLoad: true,
       autoRotate: 0,
-      orientationOnByDefault: mobile,
+      orientationOnByDefault: false,
       showZoomCtrl: true,
       showFullscreenCtrl: true,
       compass: true,
@@ -89,11 +102,12 @@ export default function PannellumBackground() {
 
     return () => {
       clearTimeout(fallback);
+      cancelAnimationFrame(gyroLoopRef.current);
       try { viewer.destroy(); } catch(_) {}
       viewerRef.current = null;
       loadedRef.current = false;
     };
-  }, []);
+  }, [useFallback]);
 
   useEffect(() => {
     if (!loadedRef.current || isMobile()) return;
@@ -159,6 +173,51 @@ export default function PannellumBackground() {
       cancelAnimationFrame(animId);
     };
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (!mobile || !gyro.isActive) return;
+
+    gyroCalRef.current = null;
+    let running = true;
+
+    const tick = () => {
+      if (!running) return;
+      const viewer = viewerRef.current;
+      if (!viewer) { gyroLoopRef.current = requestAnimationFrame(tick); return; }
+
+      const g = gyro.anglesRef.current;
+
+      if (!gyroCalRef.current) {
+        gyroCalRef.current = { heading: g.heading, pitch: g.pitch };
+      }
+
+      let yaw = g.heading - gyroCalRef.current.heading;
+      while (yaw > 180) yaw -= 360;
+      while (yaw < -180) yaw += 360;
+
+      const pitch = -(g.pitch - gyroCalRef.current.pitch);
+      const clampedPitch = Math.max(-90, Math.min(90, pitch));
+
+      try {
+        viewer.setYaw(yaw);
+        viewer.setPitch(clampedPitch);
+      } catch (_) {}
+
+      gyroLoopRef.current = requestAnimationFrame(tick);
+    };
+
+    gyroLoopRef.current = requestAnimationFrame(tick);
+    return () => { running = false; cancelAnimationFrame(gyroLoopRef.current); };
+  }, [mobile, gyro.isActive]);
+
+  useEffect(() => {
+    if (!useFallback) return;
+    const el = divRef.current;
+    if (!el) return;
+    el.style.background = 'url(/360.jpeg) center/cover no-repeat';
+    const splash = document.getElementById('splash');
+    if (splash) splash.classList.add('done');
+  }, [useFallback]);
 
   return (
     <>

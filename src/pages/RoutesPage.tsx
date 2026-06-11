@@ -42,7 +42,7 @@ function RegionSection({ zOffset, title, desc, features, image, cta, align }: {
   );
 }
 
-/* â”€â”€â”€ Mobile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Mobile ──────────────────────────────────────────────── */
 
 function MobileDestinationsPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -87,8 +87,9 @@ function MobileDestinationsPage() {
           y: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out',
           scrollTrigger: {
             trigger: section,
-            start: 'top 80%',
+            start: 'top 85%',
             toggleActions: 'play none none reverse',
+            once: true,
           },
         }
       );
@@ -98,17 +99,16 @@ function MobileDestinationsPage() {
   return (
     <div ref={containerRef} className="w-full text-ivory relative z-[3]">
 
-      <section className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
-        <div className="absolute inset-0 bg-ivory/10" />
+      <section className="mobile-section w-full px-5 py-16 relative">
         <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="w-8 h-[1px] bg-ivory/10"></div>
+            <div className="w-8 h-[1px] bg-ivory/20"></div>
             <span className="text-ivory/30 text-base font-serif italic">&#9670;</span>
-            <div className="w-8 h-[1px] bg-ivory/10"></div>
+            <div className="w-8 h-[1px] bg-ivory/20"></div>
           </div>
           <h1 className="font-serif text-3xl md:text-4xl text-ivory leading-tight mb-5">
             Explore International<br/>
-            <span className="italic text-brand-dark">Destinations</span>
+            <span className="italic text-gold-600">Destinations</span>
           </h1>
           <p className="font-sans text-sm text-ivory/50 tracking-widest uppercase">
             Carefully curated travel experiences across the globe.
@@ -117,21 +117,25 @@ function MobileDestinationsPage() {
       </section>
 
       {regions.map((region) => (
-        <section key={region.title} className="mobile-section min-h-screen w-full flex items-center justify-center px-5 py-20 relative">
-          <div className="absolute inset-0 bg-ivory/10" />
+        <section key={region.title} className="mobile-section w-full px-5 py-16 relative">
           <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto">
-          <div className="bg-ivory/60 backdrop-blur-xl p-4 text-left">
-            <p className="font-sans text-[9px] tracking-[0.35em] uppercase text-brand-tertiary/60 mb-2">Destination</p>
-            <h2 className="font-serif text-2xl leading-tight mb-3 text-obsidian/80">{region.title}</h2>
-            <p className="font-sans text-xs text-brand-dark/60 leading-relaxed border-l border-obsidian/10 pl-4 mb-3">{region.desc}</p>
-            <div className="flex flex-wrap gap-2 mb-3">
-              {region.features.map((f) => (
-                <span key={f} className="font-sans text-[7px] tracking-[0.2em] uppercase text-brand-tertiary bg-brand-tertiary/10 px-2 py-1">{f}</span>
-              ))}
+          <div className="overflow-hidden border border-ivory/10 rounded-sm">
+            <div className="h-36 overflow-hidden">
+              <img src={region.image} className="w-full h-full object-cover" alt={region.title} />
             </div>
-            <button className="uppercase font-sans tracking-[0.3em] text-[9px] border border-obsidian/20 px-5 py-2 text-obsidian/70 hover:bg-obsidian hover:text-ivory transition-all w-full">
-              {region.cta}
-            </button>
+            <div className="p-4 text-left">
+              <p className="font-sans text-[9px] tracking-[0.35em] uppercase text-ivory/50 mb-2">Destination</p>
+              <h2 className="font-serif text-xl leading-tight mb-2 text-ivory">{region.title}</h2>
+              <p className="font-sans text-xs text-ivory/70 leading-relaxed mb-3">{region.desc}</p>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {region.features.map((f) => (
+                  <span key={f} className="font-sans text-[7px] tracking-[0.2em] uppercase text-ivory/50 border border-ivory/20 px-2 py-1">{f}</span>
+                ))}
+              </div>
+              <button className="uppercase font-sans tracking-[0.3em] text-[9px] border border-ivory/30 px-5 py-2 text-ivory/70 hover:bg-ivory hover:text-obsidian transition-all w-full">
+                {region.cta}
+              </button>
+            </div>
           </div>
           </div>
         </section>
@@ -141,7 +145,7 @@ function MobileDestinationsPage() {
   );
 }
 
-/* â”€â”€â”€ Desktop â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Desktop ─────────────────────────────────────────────── */
 
 export default function RoutesPage() {
   const isMobile = useIsMobile();
@@ -227,6 +231,3 @@ export default function RoutesPage() {
     </div>
   );
 }
-
-
-
