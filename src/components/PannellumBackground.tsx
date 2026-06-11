@@ -37,6 +37,18 @@ export default function PannellumBackground() {
   const mobile = isMobile();
   const gyro = useGyro();
 
+  const dismissSplash = () => {
+    loadedRef.current = true;
+    const splash = document.getElementById('splash');
+    if (splash) splash.classList.add('done');
+  };
+
+  /* ── Mobile: dismiss splash immediately ──────────────────── */
+  useEffect(() => {
+    if (!mobile) return;
+    dismissSplash();
+  }, [mobile]);
+
   /* ── Desktop: pannellum viewer ───────────────────────────── */
   useEffect(() => {
     if (mobile) return;
@@ -66,12 +78,6 @@ export default function PannellumBackground() {
     });
 
     viewerRef.current = viewer;
-
-    const dismissSplash = () => {
-      loadedRef.current = true;
-      const splash = document.getElementById('splash');
-      if (splash) splash.classList.add('done');
-    };
 
     viewer.on('load', dismissSplash);
     viewer.on('error', dismissSplash);
