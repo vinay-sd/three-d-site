@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useGyro } from '../hooks/useGyro';
 
@@ -32,30 +32,19 @@ export default function PannellumBackground() {
   const viewerRef = useRef<any>(null);
   const loadedRef = useRef(false);
   const animRef = useRef<{ cancelled: boolean } | null>(null);
-  const gyroCalRef = useRef<{ heading: number; pitch: number } | null>(null);
   const gyroLoopRef = useRef(0);
-  const [useFallback, setUseFallback] = useState(false);
   const location = useLocation();
   const mobile = isMobile();
-
   const gyro = useGyro();
 
+  /* ── Desktop: pannellum viewer ───────────────────────────── */
   useEffect(() => {
-    if (!mobile) return;
-    const t = setTimeout(() => {
-      if (!gyro.isActive) setUseFallback(true);
-    }, 3000);
-    return () => clearTimeout(t);
-  }, [mobile, gyro.isActive]);
-
-  useEffect(() => {
-    if (useFallback) return;
+    if (mobile) return;
 
     const el = divRef.current;
     if (!el) return;
 
     const target = focalPoints[location.pathname] || focalPoints['/'];
-
     el.style.background = 'radial-gradient(ellipse at 50% 50%, #111 0%, #050505 100%)';
 
     const viewer = pannellum.viewer(el, {
@@ -67,13 +56,13 @@ export default function PannellumBackground() {
       showZoomCtrl: true,
       showFullscreenCtrl: true,
       compass: true,
-      mouseZoom: !mobile,
-      touchZoom: mobile,
-      hfov: mobile ? 80 : target.hfov,
+      mouseZoom: true,
+      touchZoom: true,
+      hfov: target.hfov,
       yaw: target.yaw,
       pitch: target.pitch,
       preview: PREVIEW_DATA,
-      draggable: !mobile,
+      draggable: true,
     });
 
     viewerRef.current = viewer;
@@ -84,31 +73,21 @@ export default function PannellumBackground() {
       if (splash) splash.classList.add('done');
     };
 
-    viewer.on('load', () => {
-      dismissSplash();
-      if (mobile && gyro.permissionRequired) {
-        const permit = () => {
-          gyro.requestPermission();
-          document.removeEventListener('touchstart', permit);
-          document.removeEventListener('click', permit);
-        };
-        document.addEventListener('touchstart', permit, { once: true });
-        document.addEventListener('click', permit, { once: true });
-      }
-    });
+    viewer.on('load', dismissSplash);
     viewer.on('error', dismissSplash);
 
-    const fallback = setTimeout(dismissSplash, mobile ? 2000 : 6000);
+    const fallback = setTimeout(dismissSplash, 6000);
 
     return () => {
       clearTimeout(fallback);
       cancelAnimationFrame(gyroLoopRef.current);
-      try { viewer.destroy(); } catch(_) {}
+      try { viewer.destroy(); } catch (_) {}
       viewerRef.current = null;
       loadedRef.current = false;
     };
-  }, [useFallback]);
+  }, [mobile]);
 
+  /* ── Desktop: animated transitions ───────────────────────── */
   useEffect(() => {
     if (!loadedRef.current || isMobile()) return;
     const target = focalPoints[location.pathname] || focalPoints['/'];
@@ -142,6 +121,7 @@ export default function PannellumBackground() {
     return () => { anim.cancelled = true; };
   }, [location.pathname]);
 
+  /* ── Desktop: scroll-based hfov ──────────────────────────── */
   useEffect(() => {
     if (isMobile()) return;
 
@@ -174,54 +154,17 @@ export default function PannellumBackground() {
     };
   }, [location.pathname]);
 
-  useEffect(() => {
-    if (!mobile || !gyro.isActive) return;
-
-    gyroCalRef.current = null;
-    let running = true;
-
-    const tick = () => {
-      if (!running) return;
-      const viewer = viewerRef.current;
-      if (!viewer) { gyroLoopRef.current = requestAnimationFrame(tick); return; }
-
-      const g = gyro.anglesRef.current;
-
-      if (!gyroCalRef.current) {
-        gyroCalRef.current = { heading: g.heading, pitch: g.pitch };
-      }
-
-      let yaw = g.heading - gyroCalRef.current.heading;
-      while (yaw > 180) yaw -= 360;
-      while (yaw < -180) yaw += 360;
-
-      const pitch = -(g.pitch - gyroCalRef.current.pitch);
-      const clampedPitch = Math.max(-90, Math.min(90, pitch));
-
-      try {
-        viewer.setYaw(yaw);
-        viewer.setPitch(clampedPitch);
-      } catch (_) {}
-
-      gyroLoopRef.current = requestAnimationFrame(tick);
-    };
-
-    gyroLoopRef.current = requestAnimationFrame(tick);
-    return () => { running = false; cancelAnimationFrame(gyroLoopRef.current); };
-  }, [mobile, gyro.isActive]);
-
-  useEffect(() => {
-    if (!useFallback) return;
-    const el = divRef.current;
-    if (!el) return;
-    el.style.background = 'url(/360.jpeg) center/cover no-repeat';
-    const splash = document.getElementById('splash');
-    if (splash) splash.classList.add('done');
-  }, [useFallback]);
-
   return (
     <>
-      <div ref={divRef} className="w-full h-full" />
+      <div
+        ref={divRef}
+        className="w-full h-full"
+        style={
+          mobile
+            ? { background: 'url(/360.jpeg) center/cover no-repeat #050505' }
+            : undefined
+        }
+      />
       {mobile && gyro.isActive && (
         <div id="xyro-badge">xyro</div>
       )}
