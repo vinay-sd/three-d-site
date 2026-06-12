@@ -9,7 +9,10 @@ import HeroBanner from '../components/HeroBanner';
 gsap.registerPlugin(ScrollTrigger);
 
 const totalDepth = 16800;
-const scaleFactor = 0.00005; // Controls how much sections "pop out"
+const scaleFactor = 0.00005;
+
+const mobileGlassBox = "bg-white/8 backdrop-blur-sm border border-white/15 rounded-sm";
+const mobileGlassBoxStrong = "bg-white/12 backdrop-blur-md border border-white/20 rounded-sm";
 
 function TrustedSection({ zOffset }: { zOffset: number }) {
   const stats = [
@@ -36,21 +39,18 @@ function TrustedSection({ zOffset }: { zOffset: number }) {
           Trusted By Travelers
         </p>
         <div className="flex flex-wrap justify-center gap-3">
-          {stats.map((s, index) => {
-            const strong = index === 0 || index === 2;
-            return (
-              <div
-                key={s.label}
-                className={`w-[150px] ${strong ? 'bg-ivory/85' : 'bg-ivory/85'} backdrop-blur-xl p-4 rounded-sm text-center crisp-text`}
-                style={{ transform: 'translateZ(0)' }}
-              >
-                <p className="font-serif text-2xl md:text-3xl text-brand-dark mb-1">{s.value}</p>
-                <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-brand-dark/50">
-                  {s.label}
-                </p>
-              </div>
-            );
-          })}
+          {stats.map((s) => (
+            <div
+              key={s.label}
+              className="w-[150px] bg-ivory/85 backdrop-blur-xl p-4 rounded-sm text-center crisp-text"
+              style={{ transform: 'translateZ(0)' }}
+            >
+              <p className="font-serif text-2xl md:text-3xl text-brand-dark mb-1">{s.value}</p>
+              <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-brand-dark/50">
+                {s.label}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -83,19 +83,16 @@ function FeaturesSection({ zOffset }: { zOffset: number }) {
         </p>
         <h2 className="font-serif text-3xl md:text-4xl text-ivory mb-10">Why Travel With Us</h2>
         <div className="flex flex-wrap justify-center gap-3 text-left">
-          {features.map((f, index) => {
-            const strong = index === 0 || index === 2;
-            return (
-              <div
-                key={f.title}
-                className={`w-[220px] ${strong ? 'bg-ivory/85' : 'bg-ivory/85'} backdrop-blur-xl p-4 rounded-sm crisp-text`}
-                style={{ transform: 'translateZ(0)' }}
-              >
-                <h3 className="font-serif text-sm text-brand-dark mb-1">{f.title}</h3>
-                <p className="font-sans text-[10px] text-brand-dark/60 leading-relaxed">{f.desc}</p>
-              </div>
-            );
-          })}
+          {features.map((f) => (
+            <div
+              key={f.title}
+              className="w-[220px] bg-ivory/85 backdrop-blur-xl p-4 rounded-sm crisp-text"
+              style={{ transform: 'translateZ(0)' }}
+            >
+              <h3 className="font-serif text-sm text-brand-dark mb-1">{f.title}</h3>
+              <p className="font-sans text-[10px] text-brand-dark/60 leading-relaxed">{f.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -131,7 +128,7 @@ function DestinationsSection({ zOffset }: { zOffset: number }) {
         className="absolute top-[22%] left-[5%] right-[5%] flex gap-3 flex-wrap justify-center"
         style={{ transform: 'translateZ(80px)' }}
       >
-        {dests.map((d, i) => (
+        {dests.map((d) => (
           <div key={d.name} className="group w-[30%] min-w-[200px] max-w-[280px] overflow-hidden border border-ivory/10 bg-ivory backdrop-blur-xl crisp-text">
             <div className="h-32 overflow-hidden">
               <img src={d.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" alt={d.name} />
@@ -256,17 +253,11 @@ function CtaSection({ zOffset }: { zOffset: number }) {
     >
       <div
         className="absolute top-[20%] left-[10%] w-[180px] h-[180px] rounded-full border border-ivory/10"
-        style={{
-          transform: `translateZ(-300px) scale(${1 + Math.abs(zOffset + 3000) * scaleFactor})`,
-          willChange: 'transform',
-        }}
+        style={{ transform: `translateZ(-300px) scale(${1 + Math.abs(zOffset + 3000) * scaleFactor})`, willChange: 'transform' }}
       />
       <div
         className="absolute bottom-[25%] right-[12%] w-[140px] h-[140px] rounded-full border border-ivory/10"
-        style={{
-          transform: `translateZ(-250px) scale(${1 + Math.abs(zOffset + 2500) * scaleFactor})`,
-          willChange: 'transform',
-        }}
+        style={{ transform: `translateZ(-250px) scale(${1 + Math.abs(zOffset + 2500) * scaleFactor})`, willChange: 'transform' }}
       />
       <div
         className="text-center max-w-xl mx-auto bg-ivory/60 backdrop-blur-xl px-6 py-8 crisp-text"
@@ -299,25 +290,7 @@ function CtaSection({ zOffset }: { zOffset: number }) {
   );
 }
 
-/* ─── Mobile Layout (unchanged) ────────────────────────────────── */
-
-interface MobileSectionProps {
-  children: React.ReactNode;
-  sectionRef?: React.RefObject<HTMLElement>;
-}
-
-function MobileSection({ children, sectionRef }: MobileSectionProps) {
-  return (
-    <section
-      ref={sectionRef}
-      className="w-full px-5 py-16 relative"
-    >
-      <div className="relative z-10 w-full max-w-lg mx-auto text-center">
-        {children}
-      </div>
-    </section>
-  );
-}
+/* ─── Mobile Layout ─────────────────────────────────────────────── */
 
 function MobileHomePage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -366,14 +339,12 @@ function MobileHomePage() {
     sections.forEach((section, index) => {
       const inner = section.querySelector('.mobile-section-inner');
       if (!inner) return;
-      const delay = index * 0.1;
-
       gsap.fromTo(
         inner,
         { y: 80, opacity: 0, scale: 0.97 },
         {
           y: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out',
-          delay,
+          delay: index * 0.05,
           scrollTrigger: {
             trigger: section,
             start: 'top 85%',
@@ -390,7 +361,7 @@ function MobileHomePage() {
       <HeroBanner
         zOffset={0}
         decorator
-        title=" The World Is"
+        title="The World Is"
         titleItalic="Closer Than You Think"
         subtitle="Discover expertly curated international holidays across Europe, Asia, the Middle East, Africa, Australia, and the Americas."
         scrollIndicator
@@ -399,9 +370,9 @@ function MobileHomePage() {
       <section className="mobile-section w-full px-5 py-16 relative">
         <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
           <p className="font-sans text-[11px] tracking-[0.35em] uppercase text-ivory/50 mb-6">Trusted By Travelers</p>
-          <div className="grid grid-cols-2 gap-4 max-w-xs mx-auto">
+          <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
             {stats.map((s) => (
-              <div key={s.label} className="p-3">
+              <div key={s.label} className={`p-3 ${mobileGlassBox}`}>
                 <p className="font-serif text-2xl text-ivory">{s.value}</p>
                 <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-ivory/50 mt-1">{s.label}</p>
               </div>
@@ -413,9 +384,9 @@ function MobileHomePage() {
       <section className="mobile-section w-full px-5 py-16 relative">
         <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
           <p className="font-sans text-[11px] tracking-[0.35em] uppercase text-ivory/50 mb-6">Why Travel With Us</p>
-          <div className="flex flex-col gap-3 text-left px-2">
+          <div className="flex flex-col gap-2 text-left px-2">
             {features.map((f) => (
-              <div key={f.title} className="p-3 border border-ivory/10">
+              <div key={f.title} className={`px-3 py-3 ${mobileGlassBox}`}>
                 <h3 className="font-serif text-sm text-ivory mb-1">{f.title}</h3>
                 <p className="font-sans text-xs text-ivory/60 leading-relaxed">{f.desc}</p>
               </div>
@@ -428,15 +399,15 @@ function MobileHomePage() {
         <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
           <p className="font-sans text-[11px] tracking-[0.35em] uppercase text-ivory/50 mb-4">Destinations</p>
           <h2 className="font-serif text-2xl text-ivory mb-6">Popular International Destinations</h2>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             {dests.map((d) => (
-              <div key={d.name} className="overflow-hidden border border-ivory/10 rounded-sm flex flex-row items-stretch">
-                <div className="w-28 h-24 shrink-0 overflow-hidden">
+              <div key={d.name} className={`overflow-hidden flex flex-row items-stretch ${mobileGlassBox}`}>
+                <div className="w-28 h-24 shrink-0 overflow-hidden rounded-l-sm">
                   <img src={d.image} className="w-full h-full object-cover" alt={d.name} />
                 </div>
                 <div className="flex-1 p-3 text-left">
                   <h3 className="font-serif text-sm text-ivory mb-1">{d.name}</h3>
-                  <p className="font-sans text-[11px] text-ivory/60 leading-relaxed">{d.desc}</p>
+                  <p className="font-sans text-[11px] text-ivory/65 leading-relaxed">{d.desc}</p>
                 </div>
               </div>
             ))}
@@ -447,9 +418,9 @@ function MobileHomePage() {
       <section className="mobile-section w-full px-5 py-16 relative">
         <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
           <p className="font-sans text-[11px] tracking-[0.35em] uppercase text-ivory/50 mb-6">Featured Experiences</p>
-          <div className="flex flex-col gap-3 text-left px-2">
+          <div className="flex flex-col gap-2 text-left px-2">
             {experiences.map((e) => (
-              <div key={e.title} className="p-3 border border-ivory/10">
+              <div key={e.title} className={`px-3 py-3 ${mobileGlassBox}`}>
                 <h3 className="font-serif text-sm text-ivory mb-1">{e.title}</h3>
                 <p className="font-sans text-xs text-ivory/60 leading-relaxed">{e.desc}</p>
               </div>
@@ -464,9 +435,9 @@ function MobileHomePage() {
           <p className="font-sans text-xs text-ivory/70 leading-relaxed mb-6 px-2">
             Our dedicated travel experts work behind the scenes to create seamless international holidays. Whether it is your first overseas journey or your tenth, we focus on delivering memorable experiences with professional support at every stage.
           </p>
-          <div className="flex flex-col gap-3 px-2">
+          <div className="flex flex-col gap-2 px-2">
             {testimonials.map((t, i) => (
-              <div key={i} className="p-3 border border-ivory/10 text-left">
+              <div key={i} className={`px-3 py-3 text-left ${mobileGlassBox}`}>
                 <p className="font-serif text-xs text-ivory/80 italic leading-relaxed">"{t.quote}"</p>
               </div>
             ))}
@@ -492,7 +463,7 @@ function MobileHomePage() {
   );
 }
 
-/* ─── Desktop 3D scroll layout ─────────────────────────────── */
+/* ─── Desktop 3D scroll layout ─────────────────────────────────── */
 
 export default function HomePage() {
   const isMobile = useIsMobile();
@@ -537,11 +508,7 @@ export default function HomePage() {
         <div
           ref={cameraRef}
           className="w-full h-full preserve-3d absolute inset-0"
-          style={{
-            transformOrigin: '50% 50% 0px',
-            transformStyle: 'preserve-3d',
-            willChange: 'transform',
-          }}
+          style={{ transformOrigin: '50% 50% 0px', transformStyle: 'preserve-3d', willChange: 'transform' }}
         >
           <div ref={sceneRef} className="w-full h-full preserve-3d absolute inset-0">
             <HeroBanner

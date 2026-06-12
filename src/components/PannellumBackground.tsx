@@ -28,7 +28,6 @@ function isMobile() {
 const PREVIEW_DATA = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221%22 height=%221%22%3E%3Crect width=%221%22 height=%221%22 fill=%22%23050505%22/%3E%3C/svg%3E';
 
 export default function PannellumBackground() {
-  const divRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<any>(null);
   const loadedRef = useRef(false);
   const animRef = useRef<{ cancelled: boolean } | null>(null);
@@ -43,17 +42,70 @@ export default function PannellumBackground() {
     if (splash) splash.classList.add('done');
   };
 
-  /* ── Mobile: dismiss splash immediately ──────────────────── */
   useEffect(() => {
     if (!mobile) return;
+
+    const bg = document.getElementById('pannellum-bg');
+    const fg = document.getElementById('pannellum-fg');
+    if (!bg || !fg) return;
+
+    const target = focalPoints[location.pathname] || focalPoints['/'];
+
+    bg.style.background = 'url(/360.jpeg) center/cover no-repeat #050505';
+
     dismissSplash();
+
+    fg.style.opacity = '0';
+
+    const viewer = pannellum.viewer(fg, {
+      type: 'equirectangular',
+      panorama: '/360.jpeg',
+      autoLoad: true,
+      autoRotate: 0,
+      orientationOnByDefault: false,
+      showZoomCtrl: false,
+      showFullscreenCtrl: false,
+      compass: false,
+      mouseZoom: false,
+      touchZoom: false,
+      hfov: 80,
+      yaw: target.yaw,
+      pitch: target.pitch,
+      draggable: false,
+    });
+
+    viewerRef.current = viewer;
+
+    viewer.on('load', () => {
+      loadedRef.current = true;
+      fg.style.opacity = '1';
+    });
+
+    viewer.on('error', () => {
+      try { viewer.destroy(); } catch (_) {}
+      viewerRef.current = null;
+    });
+
+    const destroyTimeout = setTimeout(() => {
+      if (!loadedRef.current) {
+        try { viewer.destroy(); } catch (_) {}
+        viewerRef.current = null;
+      }
+    }, 8000);
+
+    return () => {
+      clearTimeout(destroyTimeout);
+      cancelAnimationFrame(gyroLoopRef.current);
+      try { viewer.destroy(); } catch (_) {}
+      viewerRef.current = null;
+      loadedRef.current = false;
+    };
   }, [mobile]);
 
-  /* ── Desktop: pannellum viewer ───────────────────────────── */
   useEffect(() => {
     if (mobile) return;
 
-    const el = divRef.current;
+    const el = document.getElementById('pannellum-fg');
     if (!el) return;
 
     const target = focalPoints[location.pathname] || focalPoints['/'];
@@ -93,9 +145,8 @@ export default function PannellumBackground() {
     };
   }, [mobile]);
 
-  /* ── Desktop: animated transitions ───────────────────────── */
   useEffect(() => {
-    if (!loadedRef.current || isMobile()) return;
+    if (!loadedRef.current || mobile) return;
     const target = focalPoints[location.pathname] || focalPoints['/'];
 
     if (animRef.current) animRef.current.cancelled = true;
@@ -127,9 +178,8 @@ export default function PannellumBackground() {
     return () => { anim.cancelled = true; };
   }, [location.pathname]);
 
-  /* ── Desktop: scroll-based hfov ──────────────────────────── */
   useEffect(() => {
-    if (isMobile()) return;
+    if (mobile) return;
 
     const fp = focalPoints[location.pathname] || focalPoints['/'];
     const startHfov = fp.hfov;
@@ -160,20 +210,50 @@ export default function PannellumBackground() {
     };
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (!mobile || !gyro.isActive) return;
+
+    let calibrated = false;
+    let calHeading = 0;
+    let calPitch = 0;
+    let running = true;
+
+    const tick = () => {
+      if (!running) return;
+      const viewer = viewerRef.current;
+      if (!viewer) { gyroLoopRef.current = requestAnimationFrame(tick); return; }
+
+      const g = gyro.anglesRef.current;
+
+      if (!calibrated) {
+        calHeading = g.heading;
+        calPitch = g.pitch;
+        calibrated = true;
+      }
+
+      let yaw = g.heading - calHeading;
+      if (yaw > 180) yaw -= 360;
+      if (yaw < -180) yaw += 360;
+
+      const pitch = g.pitch - calPitch;
+      const clampedPitch = Math.max(-90, Math.min(90, pitch));
+
+      try {
+        viewer.setYaw(yaw);
+        viewer.setPitch(clampedPitch);
+      } catch (_) {}
+
+      gyroLoopRef.current = requestAnimationFrame(tick);
+    };
+
+    gyroLoopRef.current = requestAnimationFrame(tick);
+    return () => { running = false; cancelAnimationFrame(gyroLoopRef.current); };
+  }, [mobile, gyro.isActive]);
+
   return (
-    <>
-      <div
-        ref={divRef}
-        className="w-full h-full"
-        style={
-          mobile
-            ? { background: 'url(/360.jpeg) center/cover no-repeat #050505' }
-            : undefined
-        }
-      />
-      {mobile && gyro.isActive && (
-        <div id="xyro-badge">xyro</div>
-      )}
-    </>
+    <div className="w-full h-full relative">
+      <div id="pannellum-bg" className="absolute inset-0" />
+      <div id="pannellum-fg" className="absolute inset-0" />
+    </div>
   );
 }

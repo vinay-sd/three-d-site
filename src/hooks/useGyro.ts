@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import AHRS from 'ahrs';
 
 export interface GyroAngles {
   heading: number;
@@ -21,53 +20,25 @@ export function useGyro(): GyroState {
   const [permissionRequired, setPermissionRequired] = useState(false);
 
   const anglesRef = useRef<GyroAngles>({ heading: 0, pitch: 0, roll: 0 });
-  const ahrsRef = useRef<AHRS | null>(null);
-  const lastTimeRef = useRef(0);
   const activeRef = useRef(false);
-  const handlerRef = useRef<((e: DeviceMotionEvent) => void) | null>(null);
+  const handlerRef = useRef<((e: DeviceOrientationEvent) => void) | null>(null);
 
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
   const needsPermission =
     isIOS &&
-    typeof DeviceMotionEvent !== 'undefined' &&
-    typeof (DeviceMotionEvent as any).requestPermission === 'function';
+    typeof DeviceOrientationEvent !== 'undefined' &&
+    typeof (DeviceOrientationEvent as any).requestPermission === 'function';
 
-  if (!ahrsRef.current) {
-    ahrsRef.current = new AHRS({
-      sampleInterval: 20,
-      algorithm: 'Madgwick',
-      beta: 0.4,
-      doInitialisation: true,
-    });
-  }
+  const handleOrientation = useCallback((event: DeviceOrientationEvent) => {
+    const alpha = event.alpha;
+    const beta = event.beta;
+    const gamma = event.gamma;
+    if (alpha === null || beta === null || gamma === null) return;
 
-  const handleMotion = useCallback((event: DeviceMotionEvent) => {
-    const accel = event.accelerationIncludingGravity;
-    const gyro = event.rotationRate;
-    if (!accel || !gyro) return;
-
-    const ax = (accel.x ?? 0) / 9.81;
-    const ay = (accel.y ?? 0) / 9.81;
-    const az = (accel.z ?? 0) / 9.81;
-
-    const gx = (gyro.alpha ?? 0) * Math.PI / 180;
-    const gy = (gyro.beta ?? 0) * Math.PI / 180;
-    const gz = (gyro.gamma ?? 0) * Math.PI / 180;
-
-    const now = performance.now();
-    const dt = lastTimeRef.current ? (now - lastTimeRef.current) / 1000 : 1 / 20;
-    lastTimeRef.current = now;
-
-    const ahrs = ahrsRef.current;
-    if (!ahrs) return;
-
-    ahrs.update(gx, gy, gz, ax, ay, az, undefined, undefined, undefined, dt);
-
-    const euler = ahrs.getEulerAnglesDegrees();
     anglesRef.current = {
-      heading: euler.heading,
-      pitch: euler.pitch,
-      roll: euler.roll,
+      heading: alpha,
+      pitch: beta,
+      roll: gamma,
     };
 
     if (!activeRef.current) {
@@ -80,12 +51,12 @@ export function useGyro(): GyroState {
     if (activeRef.current) return;
 
     const startListening = () => {
-      window.addEventListener('devicemotion', handleMotion);
-      handlerRef.current = handleMotion;
+      window.addEventListener('deviceorientation', handleOrientation);
+      handlerRef.current = handleOrientation;
     };
 
     if (needsPermission) {
-      (DeviceMotionEvent as any)
+      (DeviceOrientationEvent as any)
         .requestPermission()
         .then((permState: string) => {
           if (permState === 'granted') startListening();
@@ -95,15 +66,15 @@ export function useGyro(): GyroState {
     } else {
       startListening();
     }
-  }, [handleMotion, needsPermission]);
+  }, [handleOrientation, needsPermission]);
 
   useEffect(() => {
-    const supported = typeof DeviceMotionEvent !== 'undefined';
+    const supported = typeof DeviceOrientationEvent !== 'undefined';
     if (!supported) return;
 
     if (!needsPermission) {
-      window.addEventListener('devicemotion', handleMotion);
-      handlerRef.current = handleMotion;
+      window.addEventListener('deviceorientation', handleOrientation);
+      handlerRef.current = handleOrientation;
       setIsSupported(true);
     } else {
       setIsSupported(true);
@@ -112,10 +83,10 @@ export function useGyro(): GyroState {
 
     return () => {
       if (handlerRef.current) {
-        window.removeEventListener('devicemotion', handlerRef.current);
+        window.removeEventListener('deviceorientation', handlerRef.current);
       }
     };
-  }, [handleMotion, needsPermission]);
+  }, [handleOrientation, needsPermission]);
 
   return { anglesRef, isActive, isSupported, permissionRequired, requestPermission };
 }

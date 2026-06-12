@@ -10,6 +10,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const totalDepth = 12000;
 
+const mobileGlassBox = "bg-white/8 backdrop-blur-sm border border-white/15 rounded-sm";
+
 function RegionSection({ zOffset, title, desc, features, image, cta, align }: {
   zOffset: number;
   title: string;
@@ -77,7 +79,7 @@ function MobileDestinationsPage() {
 
   useGSAP(() => {
     const sections = gsap.utils.toArray<HTMLElement>('.mobile-section');
-    sections.forEach((section) => {
+    sections.forEach((section, index) => {
       const inner = section.querySelector('.mobile-section-inner');
       if (!inner) return;
       gsap.fromTo(
@@ -85,6 +87,7 @@ function MobileDestinationsPage() {
         { y: 80, opacity: 0, scale: 0.97 },
         {
           y: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out',
+          delay: index * 0.05,
           scrollTrigger: {
             trigger: section,
             start: 'top 85%',
@@ -119,24 +122,24 @@ function MobileDestinationsPage() {
       {regions.map((region) => (
         <section key={region.title} className="mobile-section w-full px-5 py-16 relative">
           <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto">
-          <div className="overflow-hidden border border-ivory/10 rounded-sm">
-            <div className="h-36 overflow-hidden">
-              <img src={region.image} className="w-full h-full object-cover" alt={region.title} />
-            </div>
-            <div className="p-4 text-left">
-              <p className="font-sans text-[9px] tracking-[0.35em] uppercase text-ivory/50 mb-2">Destination</p>
-              <h2 className="font-serif text-xl leading-tight mb-2 text-ivory">{region.title}</h2>
-              <p className="font-sans text-xs text-ivory/70 leading-relaxed mb-3">{region.desc}</p>
-              <div className="flex flex-wrap gap-2 mb-3">
-                {region.features.map((f) => (
-                  <span key={f} className="font-sans text-[7px] tracking-[0.2em] uppercase text-ivory/50 border border-ivory/20 px-2 py-1">{f}</span>
-                ))}
+            <div className={`overflow-hidden flex flex-col ${mobileGlassBox}`}>
+              <div className="h-36 overflow-hidden rounded-t-sm">
+                <img src={region.image} className="w-full h-full object-cover" alt={region.title} />
               </div>
-              <button className="uppercase font-sans tracking-[0.3em] text-[9px] border border-ivory/30 px-5 py-2 text-ivory/70 hover:bg-ivory hover:text-obsidian transition-all w-full">
-                {region.cta}
-              </button>
+              <div className="p-4 text-left">
+                <p className="font-sans text-[9px] tracking-[0.35em] uppercase text-ivory/50 mb-2">Destination</p>
+                <h2 className="font-serif text-xl leading-tight mb-2 text-ivory">{region.title}</h2>
+                <p className="font-sans text-xs text-ivory/70 leading-relaxed mb-3">{region.desc}</p>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {region.features.map((f) => (
+                    <span key={f} className="font-sans text-[7px] tracking-[0.2em] uppercase text-ivory/50 border border-white/15 px-2 py-1 rounded-sm">{f}</span>
+                  ))}
+                </div>
+                <button className="uppercase font-sans tracking-[0.3em] text-[9px] border border-white/20 px-5 py-2 text-ivory/70 hover:bg-ivory hover:text-obsidian transition-all w-full rounded-sm">
+                  {region.cta}
+                </button>
+              </div>
             </div>
-          </div>
           </div>
         </section>
       ))}

@@ -35,7 +35,6 @@ body {
   overscroll-behavior: none;
 }
 
-/* Utilities for 3D */
 .crisp-text {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -56,25 +55,23 @@ body {
   mix-blend-mode: screen;
 }
 
-/* Hide scrollbar for immersive feel */
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent;
 }
 
 /* Pannellum background viewer overrides */
-#panorama-bg { width: 100%; height: 100%; background: transparent; }
-.pnlm-container { background: transparent !important; }
+.pnlm-container {
+  background: transparent !important;
+}
+
 .pnlm-load-box { display: none !important; }
 
-/* Disable pannellum click-to-gyro button on mobile */
 .pnlm-orientation-button { display: none !important; }
 
-/* Hide all pannellum UI controls globally */
 .pnlm-controls { display: none !important; }
 .pnlm-about-msg { display: none !important; }
 
-/* Mobile: enable natural scroll, smoother experience */
 @media (max-width: 767px) {
   body {
     overscroll-behavior: auto;
@@ -86,38 +83,22 @@ body {
     pointer-events: none !important;
   }
 
+  .pnlm-container,
+  .pnlm-panorama,
+  .pnlm-scene,
+  .pnlm-render-container,
+  .pnlm-ui {
+    background: transparent !important;
+  }
+
   .mobile-section-inner {
     will-change: auto;
   }
 }
 
-/* Image optimization for better zoom quality */
 img {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
 }
 
 
-
-/* xyro badge */
-#xyro-badge {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 1000;
-  background: #050505;
-  border: 1px solid rgba(238,217,188,0.15);
-  color: rgba(238,217,188,0.5);
-  font-family: 'Inter', sans-serif;
-  font-size: 9px;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  padding: 5px 12px;
-  pointer-events: none;
-  animation: xyroFadeIn 0.8s ease forwards;
-}
-
-@keyframes xyroFadeIn {
-  0% { opacity: 0; transform: translateY(8px); }
-  100% { opacity: 1; transform: translateY(0); }
-}

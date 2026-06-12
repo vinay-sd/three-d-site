@@ -9,6 +9,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const totalDepth = 10000;
 
+const mobileGlassBox = "bg-white/8 backdrop-blur-sm border border-white/15 rounded-sm";
+
 function DifferencesSection({ zOffset }: { zOffset: number }) {
   const items = [
     { title: 'Curated Itineraries', desc: 'Each journey is carefully planned to maximize experiences while maintaining comfort.' },
@@ -47,7 +49,7 @@ function CommitmentSection({ zOffset }: { zOffset: number }) {
         <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-brand-tertiary/60 mb-4">Our Commitment</p>
         <div className="flex items-center justify-center gap-4 mb-8">
           <div className="w-10 h-[1px] bg-ivory/20"></div>
-          <span className="text-obsidian/30 text-lg font-serif italic\">★</span>
+          <span className="text-obsidian/30 text-lg font-serif italic">★</span>
           <div className="w-10 h-[1px] bg-ivory/20"></div>
         </div>
         <div className="flex flex-wrap justify-center gap-3 text-left max-w-sm mx-auto">
@@ -127,7 +129,7 @@ function MobileAboutPage() {
 
   useGSAP(() => {
     const sections = gsap.utils.toArray<HTMLElement>('.mobile-section');
-    sections.forEach((section) => {
+    sections.forEach((section, index) => {
       const inner = section.querySelector('.mobile-section-inner');
       if (!inner) return;
       gsap.fromTo(
@@ -135,6 +137,7 @@ function MobileAboutPage() {
         { y: 80, opacity: 0, scale: 0.97 },
         {
           y: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out',
+          delay: index * 0.05,
           scrollTrigger: {
             trigger: section,
             start: 'top 85%',
@@ -169,9 +172,9 @@ function MobileAboutPage() {
       <section className="mobile-section w-full px-5 py-16 relative">
         <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
           <p className="font-sans text-[11px] tracking-[0.35em] uppercase text-ivory/50 mb-6">What Makes Us Different</p>
-          <div className="flex flex-col gap-3 text-left px-2">
+          <div className="flex flex-col gap-2 text-left px-2">
             {items.map((item) => (
-              <div key={item.title} className="p-3 border border-ivory/10">
+              <div key={item.title} className={`px-3 py-3 ${mobileGlassBox}`}>
                 <h3 className="font-serif text-sm text-ivory mb-1">{item.title}</h3>
                 <p className="font-sans text-xs text-ivory/60 leading-relaxed">{item.desc}</p>
               </div>
@@ -183,9 +186,9 @@ function MobileAboutPage() {
       <section className="mobile-section w-full px-5 py-16 relative">
         <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
           <p className="font-sans text-[11px] tracking-[0.35em] uppercase text-ivory/50 mb-6">Our Commitment</p>
-          <div className="flex flex-col gap-3 px-2">
+          <div className="flex flex-col gap-2 px-2">
             {commitments.map((c) => (
-              <div key={c} className="flex items-center gap-3 p-3 border border-ivory/10">
+              <div key={c} className={`flex items-center gap-3 px-3 py-3 ${mobileGlassBox}`}>
                 <span className="text-gold-600 text-sm shrink-0">&#10003;</span>
                 <span className="font-sans text-xs text-ivory/70">{c}</span>
               </div>
@@ -197,9 +200,9 @@ function MobileAboutPage() {
       <section className="mobile-section w-full px-5 py-16 relative">
         <div className="mobile-section-inner relative z-10 w-full max-w-lg mx-auto text-center">
           <p className="font-sans text-[11px] tracking-[0.35em] uppercase text-ivory/50 mb-6">FAQ</p>
-          <div className="flex flex-col gap-3 px-2">
+          <div className="flex flex-col gap-2 px-2">
             {faqs.map((faq) => (
-              <div key={faq.q} className="p-3 border border-ivory/10 text-left">
+              <div key={faq.q} className={`px-3 py-3 text-left ${mobileGlassBox}`}>
                 <h3 className="font-serif text-sm text-ivory mb-1">{faq.q}</h3>
                 <p className="font-sans text-xs text-ivory/60 leading-relaxed">{faq.a}</p>
               </div>
